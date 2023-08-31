@@ -2,7 +2,7 @@
 layout: post
 title: "My First Blog Post"
 date: 2023-8-31 10:00:00 +0800
-categories: jekyll update
+categories: text
 ---
 
 1.认识Java之父
