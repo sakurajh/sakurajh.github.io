@@ -9,6 +9,7 @@ categories: text
 詹姆斯·高斯林 （James Gosling）是一名软件专家，1955年5月19日出生于加拿大，Java编程语的共同创始人之一，一般公认他为“Java之父”。
 
 1977年获得了加拿大卡尔加里大学计算机科学学士学位，1983年获得了美国卡内基梅隆大学计算机科学博士学位。
+![text](https://imgconvert.csdnimg.cn/aHR0cDovL2ltZzQuaW1ndG4uYmRpbWcuY29tL2l0L3U9MjMzMDc4ODQ1NSwzNTA4MDMxNDU5JmZtPTI2JmdwPTAuanBn?x-oss-process=image/format,png#pic_center)
 
 
 2.什么是Java
@@ -63,6 +64,7 @@ JRE（Java运行时环境）是JVM的一部分，它包含了JVM以及Java程序
 JDK（Java开发工具包）是Java开发的核心工具，它包含了JRE以及用于开发Java程序的编译器（javac）、调试器（jdb）等工具。JDK提供了开发Java程序所需的所有功能和工具。
 
 因此，JDK包含了JRE，而JRE又包含了JVM。在开发Java程序时，需要安装JDK，而在运行Java程序时，只需要安装JRE即可。
+![text](https://tse1-mm.cn.bing.net/th/id/OIP-C.exRq6KX_cPu-CenmyerhwgAAAA?pid=ImgDet&rs=1)
 
 6.Java语言的特点
 Java具有以下特点：
@@ -84,11 +86,13 @@ Java具有以下特点：
 总的来说，Java是一种功能强大、安全性高、跨平台的编程语言，适用于各种类型的应用开发。
 
 7.第一个Java程序HelloWorld
+```java
 public class HelloWorld {
     public static void main(String[] args) {
         System.out.println("Hello World!");
     }
 }
+```
 解释：
 
 public class HelloWorld：定义了一个名为HelloWorld的公共类。每个Java程序都需要有一个公共类，并且类名必须与文件名相同。
