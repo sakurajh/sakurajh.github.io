@@ -1,3 +1,10 @@
+---
+layout: post
+title: "My First Blog Post"
+date: 2023-8-31 10:00:00 +0800
+categories: jekyll update
+---
+
 1.认识Java之父
 詹姆斯·高斯林 （James Gosling）是一名软件专家，1955年5月19日出生于加拿大，Java编程语的共同创始人之一，一般公认他为“Java之父”。
 
