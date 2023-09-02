@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "My First Blog Post"
+title: "认识java"
 date: 2023-8-31 10:00:00 +0800
 categories: text
 ---
