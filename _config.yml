@@ -1,6 +1,6 @@
 # Site settings 配置站点
 title: '赵建华的个人博客'
-description: '昵称樱花，前端开发者/伪极客，热爱技术&设计。很高兴能在这里与你分享我对技术和生活的思考。'
+description: '昵称樱花，前端开发者，stm32的忠实粉丝，热爱技术&设计。很高兴能在这里与你分享我对技术和生活的思考。'
 keyword: '赵建华, 赵建华的个人博客, 赵建华的博客, 前端, 前端开发, 前端博客, javascript, vuejs, nodejs, 设计'
 url: '' # your host
 
@@ -26,7 +26,7 @@ footer:
 # Author 配置博主信息
 author: '赵建华'
 nickname: '樱花'
-bio: '前端开发者，热爱技术&设计，简单乐观爱创造'
+bio: 'Java，stm32，HTML，C，WEB开发者，热爱技术&设计，简单乐观爱创造'
 avatar: '/assets/img/gren.png'
 
 # Search
