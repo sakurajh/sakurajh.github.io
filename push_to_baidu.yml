@@ -1,0 +1,24 @@
+name: Push to Baidu
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push-to-baidu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Push URLs to Baidu
+        run: |
+          echo "https://sakurajh.org.edu.kg/" > urls.txt
+          echo "https://sakurajh.org.edu.kg/about" >> urls.txt
+          curl -H 'Content-Type:text/plain' --data-binary @urls.txt "http://data.zz.baidu.com/urls?site=https://sakurajh.org.edu.kg&token=uWLGyfAZMoMaf0GX"
