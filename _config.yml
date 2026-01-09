@@ -2,7 +2,7 @@
 title: '赵建华的个人博客'
 description: '昵称樱花，前端开发者，stm32的忠实粉丝，热爱技术&设计。很高兴能在这里与你分享我对技术和生活的思考。'
 keyword: '赵建华, 赵建华的个人博客, 赵建华的博客, 前端, 前端开发, 前端博客, javascript, vuejs, nodejs, 设计'
-url: '' # your host
+url: 'https://sakurajh.org.edu.kg/' # your host
 
 # when build blog on server, if you don't need baseurl, you should leave this value blank.
 # 在服务器上建站时，如果你不需要子域名，请将这一格留空
