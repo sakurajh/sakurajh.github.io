@@ -1,4 +1,4 @@
-name: Deploy Jekyll (No Deprecated Dependencies)
+name: Deploy Jekyll (Downgrade Runner)
 
 on:
   push:
@@ -16,34 +16,26 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # 关键：使用ubuntu-22.04（旧版Runner，仍支持v3插件）
+    runs-on: ubuntu-22.04
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Ruby & Dependencies
-        uses: ruby/setup-ruby@v1
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
         with:
-          ruby-version: "3.2"
-          bundler-cache: true  # 自动安装Jekyll及依赖
-
-      - name: Build Jekyll Site
-        run: bundle exec jekyll build  # 手动执行构建，生成_site目录
-        env:
-          JEKYLL_ENV: production
-
+          source: ./
+          destination: ./_site
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v2
         with:
           path: ./_site
 
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v3
