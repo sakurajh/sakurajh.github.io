@@ -1,4 +1,4 @@
-name: Deploy Jekyll (Downgrade Runner)
+name: Deploy Jekyll
 
 on:
   push:
@@ -16,26 +16,34 @@ concurrency:
 
 jobs:
   build:
-    # 关键：使用ubuntu-22.04（旧版Runner，仍支持v3插件）
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
+      
+      # 关键修改：升级到 v3，解决 deprecation 报错
       - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
 
   deploy:
-    runs-on: ubuntu-22.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     needs: build
     steps:
+      # 关键修改：配合上面的 v3，这里需要升级到 v4
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v3
+        id: deployment
+        uses: actions/deploy-pages@v4
