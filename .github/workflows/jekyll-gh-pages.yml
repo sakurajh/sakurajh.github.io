@@ -21,20 +21,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # 回退到当前支持的最新稳定版v5
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      # 回退到当前支持的最新稳定版v1
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
-      # 替换为无废弃依赖的替代方案（解决upload-artifact的问题）
-      - name: Upload artifact (替代方案)
-        uses: actions/upload-artifact@v4
+      # 修改1：将普通upload-artifact替换为Pages专属upload-pages-artifact@v2
+      # 该插件上传的工件，deploy-pages@v4可以直接识别，无需手动下载
+      - name: Upload Pages exclusive artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          name: github-pages
           path: ./_site
 
   deploy:
@@ -44,11 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: ./_site
+      # 修改2：删除手动下载artifact的步骤（无需手动下载，deploy-pages会自动获取）
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
