@@ -283,9 +283,9 @@
   }
 
   /* ============ 13. 代码块行号 ============ */
-  document.querySelectorAll('.highlight').forEach(function (block) {
-    var code = block.querySelector('pre code');
-    if (!code || block.classList.contains('has-lines')) return;
+  document.querySelectorAll('pre code').forEach(function (code) {
+    /* Rouge 的 .highlight 同时出现在外层 div 与 pre 上，这里以 code 为唯一入口，避免重复处理 */
+    if (code.querySelector('.cl')) return;
     var html = code.innerHTML;
     if (html.indexOf('\n') === -1) return;
     var parts = html.split('\n');
@@ -293,7 +293,8 @@
     code.innerHTML = parts.map(function (line) {
       return '<span class="cl">' + (line.length ? line : '&nbsp;') + '</span>';
     }).join('\n');
-    block.classList.add('has-lines');
+    var wrap = code.closest('.highlight') || code.parentNode;
+    if (wrap) wrap.classList.add('has-lines');
   });
 
   /* ============ 14. 评论（Giscus，滚动到附近才加载） ============ */
