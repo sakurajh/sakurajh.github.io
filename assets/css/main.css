@@ -52,6 +52,9 @@
 /* ---------- 基础 ---------- */
 * { box-sizing: border-box; }
 
+/* 关键：让 hidden 属性始终生效（否则 .search-modal / .lightbox 的 display 会覆盖它） */
+[hidden] { display: none !important; }
+
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
