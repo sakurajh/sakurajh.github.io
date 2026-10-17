@@ -680,6 +680,28 @@ body.is-leaving .page-main {
    第三轮：归档页 / 分享栏 / 字号 / 移动目录 / 阅读位置 / 命令面板 / 代码语言与折叠
    ========================================================================== */
 
+/* ---------- 网格防溢出（长代码 / 长链接不再撑宽页面） ---------- */
+.post-layout > * { min-width: 0; }
+.post-main { min-width: 0; overflow-x: clip; }
+.markdown-body pre { max-width: 100%; }
+.markdown-body a { word-break: break-word; }
+
+@media (max-width: 1024px) {
+  .post-layout { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 720px) {
+  .markdown-body table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 13.5px;
+  }
+  .markdown-body pre { font-size: 12.5px; padding: 14px 16px; }
+  .has-lang pre { padding-top: 34px; }
+  .has-lines .cl { padding-left: 2.4em; }
+}
+
 /* ---------- 归档时间线 ---------- */
 .archive-year {
   margin-bottom: 20px;
