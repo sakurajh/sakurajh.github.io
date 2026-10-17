@@ -596,7 +596,7 @@
           y: Math.random() * CH,
           vx: (Math.random() - 0.5) * 0.28,
           vy: (Math.random() - 0.5) * 0.28,
-          r: Math.random() * 1.3 + 0.9
+          r: Math.random() * 1.5 + 1.0
         });
       }
     };
@@ -624,7 +624,7 @@
           var dy = pa.y - pb.y;
           var d2 = dx * dx + dy * dy;
           if (d2 < LINK * LINK) {
-            var alpha = (1 - Math.sqrt(d2) / LINK) * 0.52;
+            var alpha = (1 - Math.sqrt(d2) / LINK) * 0.68;
             ctx.strokeStyle = c.line + alpha.toFixed(3) + ')';
             ctx.lineWidth = 1;
             ctx.beginPath();
@@ -649,7 +649,7 @@
           }
         }
 
-        var dotAlpha = pointer.active ? 0.86 : 0.72;
+        var dotAlpha = pointer.active ? 0.9 : 0.8;
         ctx.fillStyle = c.dot + dotAlpha + ')';
         ctx.beginPath();
         ctx.arc(pa.x, pa.y, pa.r, 0, Math.PI * 2);
