@@ -9,6 +9,10 @@
   var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   var root = document.documentElement;
 
+  /* 跨文档 View Transition（Chrome 126+）—— 支持时改用浏览器原生页面过渡 */
+  var uaMatch = navigator.userAgent.match(/Chrome\/(\d+)/);
+  var crossDocVT = !!(uaMatch && parseInt(uaMatch[1], 10) >= 126) && !reduce;
+
   /* ============ 1. 自定义光标 ============ */
   if (fine && !reduce) {
     var dot = document.createElement('div');
@@ -182,7 +186,7 @@
   }
 
   /* ============ 8. 页面过渡 ============ */
-  if (!reduce) {
+  if (!reduce && !crossDocVT) {
     document.addEventListener('click', function (e) {
       var a = e.target.closest && e.target.closest('a');
       if (!a) return;
@@ -249,6 +253,98 @@
           void card.offsetWidth;
           card.classList.add('is-appear');
         }
+      });
+    });
+  }
+
+  /* ============ 12. 阅读进度环 ============ */
+  var ringBox = document.getElementById('readingRing');
+  var postBody = document.getElementById('postContent');
+  if (ringBox && postBody) {
+    var fgCircle = ringBox.querySelector('.fg');
+    var ringLabel = ringBox.querySelector('span');
+    var radius = 19;
+    var circumference = 2 * Math.PI * radius;
+    fgCircle.style.strokeDasharray = circumference;
+    fgCircle.style.strokeDashoffset = circumference;
+
+    var updateRing = function () {
+      var rect = postBody.getBoundingClientRect();
+      var total = rect.height - window.innerHeight * 0.5;
+      var passed = Math.max(-rect.top + window.innerHeight * 0.3, 0);
+      var progress = total > 0 ? Math.min(passed / total, 1) : 1;
+      fgCircle.style.strokeDashoffset = circumference * (1 - progress);
+      ringLabel.textContent = Math.round(progress * 100) + '%';
+      ringBox.classList.toggle('is-visible', window.scrollY > 320 && progress < 0.99);
+    };
+    updateRing();
+    window.addEventListener('scroll', updateRing, { passive: true });
+    window.addEventListener('resize', updateRing);
+  }
+
+  /* ============ 13. 代码块行号 ============ */
+  document.querySelectorAll('.highlight').forEach(function (block) {
+    var code = block.querySelector('pre code');
+    if (!code || block.classList.contains('has-lines')) return;
+    var html = code.innerHTML;
+    if (html.indexOf('\n') === -1) return;
+    var parts = html.split('\n');
+    while (parts.length && parts[parts.length - 1].trim() === '') parts.pop();
+    code.innerHTML = parts.map(function (line) {
+      return '<span class="cl">' + (line.length ? line : '&nbsp;') + '</span>';
+    }).join('\n');
+    block.classList.add('has-lines');
+  });
+
+  /* ============ 14. 评论（Giscus，滚动到附近才加载） ============ */
+  var giscusBox = document.getElementById('giscusBox');
+  if (giscusBox && 'IntersectionObserver' in window) {
+    var giscusTheme = function () {
+      return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    };
+    var loadGiscus = function () {
+      var s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      s.setAttribute('data-repo', giscusBox.getAttribute('data-repo'));
+      s.setAttribute('data-repo-id', giscusBox.getAttribute('data-repo-id'));
+      s.setAttribute('data-category', giscusBox.getAttribute('data-category'));
+      s.setAttribute('data-category-id', giscusBox.getAttribute('data-category-id'));
+      s.setAttribute('data-mapping', giscusBox.getAttribute('data-mapping') || 'pathname');
+      s.setAttribute('data-lang', giscusBox.getAttribute('data-lang') || 'zh-CN');
+      s.setAttribute('data-theme', giscusTheme());
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-input-position', 'top');
+      s.setAttribute('data-loading', 'lazy');
+      giscusBox.appendChild(s);
+    };
+
+    var giscusObserver = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        loadGiscus();
+        giscusObserver.disconnect();
+      }
+    }, { rootMargin: '320px' });
+    giscusObserver.observe(giscusBox);
+
+    /* 主题切换时同步评论框配色 */
+    new MutationObserver(function () {
+      var iframe = document.querySelector('iframe.giscus-frame');
+      if (!iframe) return;
+      iframe.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: giscusTheme() } } },
+        'https://giscus.app'
+      );
+    }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+
+  /* ============ 15. 共享元素过渡：卡片标题 → 文章标题 ============ */
+  if (crossDocVT) {
+    document.querySelectorAll('.post-card, .post-feature, .related-item').forEach(function (card) {
+      var target = card.querySelector('h3, h2, b');
+      card.addEventListener('click', function () {
+        if (target) target.style.viewTransitionName = 'post-title';
       });
     });
   }

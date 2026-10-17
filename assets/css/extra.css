@@ -547,3 +547,131 @@ body.is-leaving .page-main {
   .avatar-ring::before { animation: none; }
   .cursor-dot, .cursor-ring { display: none; }
 }
+
+/* ==========================================================================
+   第二轮：阅读进度环 / 代码行号 / 评论 / 共享元素过渡
+   ========================================================================== */
+
+/* ---------- 阅读进度环 ---------- */
+.reading-ring {
+  position: fixed;
+  right: 24px;
+  bottom: 84px;
+  z-index: 44;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(10px) scale(0.92);
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.reading-ring.is-visible { opacity: 1; transform: none; }
+
+.reading-ring svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.reading-ring circle {
+  fill: none;
+  stroke-width: 2.6;
+}
+
+.reading-ring .bg { stroke: var(--border-strong); }
+.reading-ring .fg {
+  stroke: #7c3aed;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.14s linear;
+}
+
+.reading-ring span {
+  position: relative;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--brand);
+  letter-spacing: -0.2px;
+}
+
+@media (max-width: 860px) {
+  .reading-ring { display: none; }
+}
+
+/* ---------- 代码行号 ---------- */
+.has-lines code { counter-reset: cl; }
+
+.has-lines .cl {
+  display: block;
+  position: relative;
+  padding-left: 2.7em;
+  min-height: 1.2em;
+}
+
+.has-lines .cl::before {
+  counter-increment: cl;
+  content: counter(cl);
+  position: absolute;
+  left: 0;
+  width: 2em;
+  text-align: right;
+  color: rgba(148, 163, 184, 0.38);
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: color 0.15s ease;
+}
+
+.has-lines .cl:hover::before { color: rgba(167, 139, 250, 0.95); }
+
+/* ---------- 评论区 ---------- */
+.comments {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.comments h3 {
+  margin: 0 0 6px;
+  font-size: 16.5px;
+  letter-spacing: -0.1px;
+}
+
+.comments h3::before {
+  content: "";
+  display: inline-block;
+  width: 4px; height: 15px;
+  margin-right: 9px;
+  border-radius: 3px;
+  background: var(--grad);
+  vertical-align: -1px;
+}
+
+.comments-tip {
+  margin: 0 0 18px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.giscus { min-height: 140px; }
+
+.giscus iframe { border-radius: 14px !important; }
+
+/* ---------- 跨页面共享元素过渡（卡片标题 → 文章标题） ---------- */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(post-title),
+::view-transition-new(post-title) {
+  animation-duration: 0.42s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}

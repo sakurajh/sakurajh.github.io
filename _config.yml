@@ -54,3 +54,14 @@ exclude:
 
 # 保持与原站一致的固定链接，避免旧链接失效
 permalink: /:year/:month/:day/:title.html
+
+# ==================== 评论（Giscus，基于 GitHub Discussions）====================
+giscus:
+  enabled: true
+  repo: sakurajh/sakurajh.github.io
+  repo_id: R_kgDOKNq9TA
+  category: General
+  category_id: DIC_kwDOKNq9TM4DIr_q
+  mapping: pathname
+  lang: zh-CN
+

@@ -12,7 +12,7 @@ layout: default
         <a class="chip" href="{{ '/categories.html' | relative_url }}#{{ cat }}">{{ cat_label }}</a>
         {% for tag in page.tags %}<span class="chip chip-ghost">{{ tag }}</span>{% endfor %}
       </div>
-      <h1>{{ page.title }}</h1>
+      <h1 style="view-transition-name: post-title">{{ page.title }}</h1>
       <div class="post-meta">
         <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y 年 %m 月 %d 日' }}</time>
         <span class="dot"></span>
@@ -61,6 +61,20 @@ layout: default
       </div>
     </section>
     {% endif %}
+
+    {% if site.giscus.enabled %}
+    <section class="comments">
+      <h3>评论与讨论</h3>
+      <p class="comments-tip">使用 GitHub 账号登录即可留言（首次使用需在 giscus 中授权）</p>
+      <div class="giscus" id="giscusBox"
+           data-repo="{{ site.giscus.repo }}"
+           data-repo-id="{{ site.giscus.repo_id }}"
+           data-category="{{ site.giscus.category }}"
+           data-category-id="{{ site.giscus.category_id }}"
+           data-mapping="{{ site.giscus.mapping }}"
+           data-lang="{{ site.giscus.lang }}"></div>
+    </section>
+    {% endif %}
   </div>
 
   {% if page.tags contains 'mathjax' or page.mathjax %}
@@ -74,3 +88,11 @@ layout: default
     </div>
   </aside>
 </article>
+
+<div class="reading-ring" id="readingRing" aria-hidden="true">
+  <svg viewBox="0 0 46 46">
+    <circle class="bg" cx="23" cy="23" r="19"></circle>
+    <circle class="fg" cx="23" cy="23" r="19"></circle>
+  </svg>
+  <span>0%</span>
+</div>
