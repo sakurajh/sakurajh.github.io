@@ -1,0 +1,16 @@
+<article class="post-card">
+  <a class="post-card-link" href="{{ include.post.url | relative_url }}" aria-label="{{ include.post.title }}">
+    <div class="post-card-top">
+      {% assign cat = include.post.categories | first %}
+      <span class="chip">{{ cat | default: '笔记' }}</span>
+      <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%Y-%m-%d' }}</time>
+    </div>
+    <h3>{{ include.post.title }}</h3>
+    <p class="post-card-excerpt">{{ include.post.excerpt | strip_html | strip_newlines | truncate: 96 }}</p>
+    <div class="post-card-foot">
+      {% assign words = include.post.content | strip_html | size %}
+      <span>{{ words | divided_by: 400 | plus: 1 }} 分钟阅读</span>
+      <span class="arrow">→</span>
+    </div>
+  </a>
+</article>

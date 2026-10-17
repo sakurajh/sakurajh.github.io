@@ -1,0 +1,108 @@
+- name: GPU 切换助手
+  repo: gpu-switch-helper
+  lang: Python
+  color: "#3572A5"
+  desc: 西电超算图形化 JSUB 作业提交助手：选节点、写代码，一键生成「粘贴即提交」的集群脚本，单文件 exe 双击即用。
+  tags: [桌面工具, 超算集群, PyInstaller]
+  featured: true
+
+- name: MD Workflow Manager
+  repo: md-workflow-manager
+  lang: Python
+  color: "#3572A5"
+  desc: 分子动力学模拟流程管理软件：接入 CHARMM-GUI 输出，自动完成能量最小化 → NVT/NPT 平衡 → 生产模拟；界面跑 Windows，计算跑 WSL2。
+  tags: [科学计算, GROMACS, WSL2]
+  featured: true
+
+- name: 情绪识别教学系统
+  repo: python-emotion-system
+  lang: Python
+  color: "#3572A5"
+  desc: FastAPI 全栈教学平台：摄像头实时情绪识别、在线考试（试卷 OCR 导入）、学情画像与 AI 助手。
+  tags: [FastAPI, OpenCV, 大模型]
+  featured: true
+
+- name: 旅行摄影日志
+  repo: travel-journal
+  lang: JavaScript
+  color: "#f1e05a"
+  desc: 复古胶片风格的旅行日志网站：前台沉浸式浏览，Supabase 做后台与图床，Vercel 一键部署。
+  tags: [前端, Supabase, Vercel]
+  featured: true
+
+- name: WeChat 鸿蒙版
+  repo: Wechat_Project
+  lang: ArkTS
+  color: "#3178c6"
+  desc: 基于 HarmonyOS NEXT 的微信客户端仿写：聊天、朋友圈、二维码名片、视频号等页面。
+  tags: [HarmonyOS, ArkTS, 课程项目]
+
+- name: YouTube 鸿蒙版
+  repo: Youtube_HarmonyOS
+  lang: ArkTS
+  color: "#3178c6"
+  desc: 鸿蒙 ArkTS 仿写的视频客户端：首页推荐、搜索、探索、排行榜与播放页。
+  tags: [HarmonyOS, ArkTS, 课程项目]
+
+- name: 书店管理系统
+  repo: BookShop
+  lang: C#
+  color: "#178600"
+  desc: C# 课程设计作品，完整工程打包在仓库根目录的 version11.zip 中。
+  tags: [C#, 课程设计]
+
+- name: JavaWeb 学习仓库
+  repo: Java-Web
+  lang: Java
+  color: "#b07219"
+  desc: JavaWeb 全栈学习路线：HTML/CSS/JS/Vue → MySQL → MyBatis → SpringBoot，附 tlias 综合案例。
+  tags: [Java, SpringBoot, 学习笔记]
+
+- name: STM32 实验合集
+  repo: Stm32
+  lang: C
+  color: "#555555"
+  desc: STM32F103 从跑马灯到 UCOSII 的 30 个实验，正点原子风格工程结构（HARDWARE / USER）。
+  tags: [嵌入式, STM32, Keil]
+
+- name: 51 单片机实验
+  repo: single-chip-microcomputer
+  lang: C
+  color: "#555555"
+  desc: 51 单片机（STC89C52）实验合集：LED、数码管、LCD1602、DS1302、红外遥控、直流电机等。
+  tags: [嵌入式, 51单片机, Keil]
+
+- name: OpenMV 机器视觉
+  repo: Openmv-Project
+  lang: Python
+  color: "#3572A5"
+  desc: OpenMV 摄像头视觉实验：色块追踪、圆形/矩形识别、数字识别、小车巡线。
+  tags: [机器视觉, MicroPython]
+
+- name: STM32 Keil 工程练习
+  repo: Stm32-Project
+  lang: C
+  color: "#555555"
+  desc: STM32 Keil MDK 工程模板与练习工程存档。
+  tags: [嵌入式, Keil]
+
+- name: MySQL 实验脚本
+  repo: MySql
+  lang: SQL
+  color: "#00758F"
+  desc: MySQL 课程实验 SQL 脚本合集，涵盖建表、查询、事务与索引。
+  tags: [数据库, MySQL]
+
+- name: HTML/CSS 练习
+  repo: html
+  lang: HTML
+  color: "#e34c26"
+  desc: 前端基础练习：标签、选择器、盒模型、Flex 布局与页面仿写。
+  tags: [前端, 练习]
+
+- name: Java 基础练习
+  repo: java
+  lang: Java
+  color: "#b07219"
+  desc: Java 语法、面向对象、集合与 Swing GUI 的练习代码合集。
+  tags: [Java, 练习]

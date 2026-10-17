@@ -1,0 +1,32 @@
+---
+layout: default
+title: 分类
+description: 按分类浏览全部文章
+---
+<section class="wrap page-block">
+  <header class="page-head">
+    <span class="kicker">ARCHIVE</span>
+    <h1>全部文章</h1>
+    <p class="page-sub">共 {{ site.posts.size }} 篇 · 按分类整理</p>
+  </header>
+
+  {% assign cats = site.categories | sort %}
+  {% for cat in cats %}
+  <section class="cat-block" id="{{ cat[0] }}">
+    <div class="cat-head">
+      <h2>{{ cat[0] }}</h2>
+      <span class="cat-count">{{ cat[1].size }} 篇</span>
+    </div>
+    <ul class="post-list">
+      {% for post in cat[1] %}
+      <li>
+        <a href="{{ post.url | relative_url }}">
+          <span class="pl-title">{{ post.title }}</span>
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</section>

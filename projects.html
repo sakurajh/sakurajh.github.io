@@ -1,0 +1,50 @@
+---
+layout: default
+title: 项目
+description: 我在 GitHub 上的开源项目与学习仓库
+---
+<section class="wrap page-block">
+  <header class="page-head">
+    <span class="kicker">PROJECTS</span>
+    <h1>我的项目</h1>
+    <p class="page-sub">开源作品与学习仓库 · 点开卡片可查看源码</p>
+  </header>
+
+  <div class="project-grid">
+    {% for p in site.data.projects %}
+    <article class="project-card{% if p.featured %} is-featured{% endif %}" data-repo="{{ p.repo }}">
+      <div class="project-top">
+        <span class="lang-dot" style="background: {{ p.color }}"></span>
+        <span class="project-lang">{{ p.lang }}</span>
+        {% if p.featured %}<span class="chip chip-accent">精选</span>{% endif %}
+      </div>
+
+      <h3>
+        <a href="https://github.com/sakurajh/{{ p.repo }}" target="_blank" rel="noopener">{{ p.name }}</a>
+      </h3>
+
+      <p class="project-desc">{{ p.desc }}</p>
+
+      <div class="project-tags">
+        {% for t in p.tags %}<span class="tag">{{ t }}</span>{% endfor %}
+      </div>
+
+      <div class="project-foot">
+        <span class="stars" title="GitHub Star">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="m12 17.3-6.2 3.7 1.7-7.1L2 9.2l7.2-.6L12 2l2.8 6.6 7.2.6-5.5 4.7 1.7 7.1z"/></svg>
+          <b data-stars>–</b>
+        </span>
+        <a class="project-link" href="https://github.com/sakurajh/{{ p.repo }}" target="_blank" rel="noopener">
+          源码 <span class="arrow">→</span>
+        </a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <p class="project-more">
+    <a class="btn-ghost" href="https://github.com/sakurajh?tab=repositories" target="_blank" rel="noopener">
+      在 GitHub 上查看全部 →
+    </a>
+  </p>
+</section>

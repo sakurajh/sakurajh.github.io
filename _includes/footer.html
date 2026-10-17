@@ -1,11 +1,38 @@
-<footer class="g-footer">
-  <section>{{ site.title }} ©
-  {% assign current = "now" | date: "%Y" | plus: 0%}
-  {% unless site.footer.since and site.footer.since == current %}
-    {{ site.footer.since }}
-    -
-  {% endunless %}
-  {{ current }}
-  </section>
-  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <div class="footer-name">{{ site.author }} <span>/ {{ site.nickname }}</span></div>
+      <p class="footer-muted">{{ site.bio }}</p>
+    </div>
+    <div class="footer-links">
+      <a href="{{ site.social.github }}" target="_blank" rel="noopener">GitHub</a>
+      <a href="{{ site.social.csdn }}" target="_blank" rel="noopener">CSDN</a>
+      <a href="{{ site.social.email }}">邮箱</a>
+      <a href="{{ site.social.rss | relative_url }}">RSS</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© {{ site.since }}–{{ site.time | date: '%Y' }} {{ site.author }}</span>
+    <span>Powered by Jekyll · Hosted on GitHub Pages</span>
+  </div>
 </footer>
+
+<!-- 站内搜索弹层 -->
+<div class="search-modal" id="searchModal" hidden>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="站内搜索">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+      <input id="searchInput" type="search" placeholder="搜索文章标题或内容…" autocomplete="off" spellcheck="false">
+      <kbd>ESC</kbd>
+    </div>
+    <div class="search-results" id="searchResults">
+      <p class="search-tip">输入关键词开始搜索，支持标题与正文</p>
+    </div>
+  </div>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部" hidden>
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<div class="lightbox" id="lightbox" hidden><img alt=""></div>

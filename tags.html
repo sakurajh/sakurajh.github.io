@@ -1,34 +1,21 @@
----
-title: Tags
-layout: default
----
-
-{% include header.html %}
-
-<div class="g-banner tags-banner {{ site.postPatterns | prepend: 'post-pattern-' }} {{ site.theme-color | prepend: 'bgcolor-' }}" data-theme="{{ site.theme-color }}">
-    <h2>TAGS</h2>
-</div>
-
-<main class="tags-content">
-
-    <ul class="tags-list">
-        <li>
-        {% if site.recommend-tags and site.tags.size>0 %}
-            {% for tag in site.tags %}
-            <a href="#{{ tag[0] }}" class="tag">{{ tag[0]}}</a>
-            {% endfor %}
-        {% endif %}
-        </li>
-        
-        {% for tag in site.tags %}
-        <li>
-            <span class="tag-name" id="{{ tag[0] }}">「{{ tag[0] }}」</span>
-            {% for post in tag[1] %}
-            <a class="tag-post" href="{{ post.url | relative_url }}" title="{{ post.title }}">{{ post.title }}</a>
-            {% endfor %}
-        </li>
-        {% endfor%}
-    </ul>
-</main>
-    
-{% include footer.html %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>正在跳转到文章分类 · 赵建华的个人博客</title>
+  <link rel="canonical" href="{{ '/categories.html' | relative_url }}">
+  <meta http-equiv="refresh" content="0; url={{ '/categories.html' | relative_url }}">
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: -apple-system, "Segoe UI", "Microsoft YaHei UI", sans-serif; background: #f6f7fb; color: #475569; }
+    .box { text-align: center; }
+    a { color: #7c3aed; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p>标签页已合并到「分类」，正在跳转…</p>
+    <p><a href="{{ '/categories.html' | relative_url }}">点此前往文章分类</a></p>
+  </div>
+</body>
+</html>

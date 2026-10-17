@@ -1,16 +1,15 @@
 ---
 layout: default
-description: "Sorry, Page Not Found :("
+title: 页面走丢了
+description: 404 - 页面不存在
+permalink: /404.html
 ---
-
-{% include header.html %}
-
-<header class="g-banner np-banner {{ site.postPatterns | prepend: 'post-pattern-' }}" data-theme="{{ site.theme-color }}">
-    <div class="post-wrapper">
-        <h1>404</h1>
-        <span class="subheading">{{ page.description }}</span>
-        <a href="{{ site.nav.home }}" class="btn">Back to home</a>
-    </div>
-</header>
-
-
+<section class="wrap error-block">
+  <div class="error-code">404</div>
+  <h1>这个页面好像走丢了</h1>
+  <p class="page-sub">地址可能写错了，或者文章已经被移动。</p>
+  <p class="error-actions">
+    <a class="btn-primary" href="{{ '/' | relative_url }}">回首页</a>
+    <a class="btn-ghost" href="{{ '/categories.html' | relative_url }}">浏览全部文章</a>
+  </p>
+</section>

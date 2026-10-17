@@ -1,0 +1,55 @@
+---
+layout: default
+title: 关于
+description: 关于我 —— 赵建华（小赵），热爱折腾代码的开发者
+---
+<section class="wrap page-block">
+  <div class="about-hero">
+    <img class="about-avatar" src="{{ site.avatar | relative_url }}" alt="{{ site.author }}" width="112" height="112">
+    <div>
+      <h1>{{ site.author }}<span class="about-nick">/ {{ site.nickname }}</span></h1>
+      <p class="about-bio">{{ site.bio }}</p>
+      <p class="about-links">
+        <a href="{{ site.social.github }}" target="_blank" rel="noopener">GitHub</a>
+        <a href="{{ site.social.csdn }}" target="_blank" rel="noopener">CSDN</a>
+        <a href="{{ site.social.email }}">邮箱</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>🔭 现在在做</h3>
+      <ul>
+        <li>科学计算流程自动化（GROMACS 分子动力学）</li>
+        <li>超算集群作业提交工具</li>
+        <li>Web 全栈小项目</li>
+      </ul>
+    </div>
+    <div class="about-card">
+      <h3>🌱 正在学习</h3>
+      <ul>
+        <li>HarmonyOS 应用开发（ArkTS）</li>
+        <li>FastAPI · OpenCV 机器视觉</li>
+        <li>C# 与 .NET 桌面开发</li>
+      </ul>
+    </div>
+    <div class="about-card">
+      <h3>🧰 技术栈</h3>
+      <div class="skill-tags">
+        <span>Python</span><span>C</span><span>C#</span><span>Java</span>
+        <span>JavaScript</span><span>TypeScript</span><span>ArkTS</span>
+        <span>MySQL</span><span>HTML / CSS</span><span>Keil</span><span>Git</span>
+      </div>
+    </div>
+    <div class="about-card">
+      <h3>📚 这个博客</h3>
+      <p class="about-text">主要记录 Java、C 语言数据结构、MySQL、C# 的学习笔记，以及一些项目折腾过程。从 {{ site.since }} 年开始写，目前共 {{ site.posts.size }} 篇。</p>
+    </div>
+  </div>
+
+  <div class="about-note">
+    <p>「 不必仰望别人，自己亦是风景 」</p>
+    <p class="about-note-sub">想看看我做过什么？<a href="{{ '/projects.html' | relative_url }}">去项目页逛逛 →</a></p>
+  </div>
+</section>

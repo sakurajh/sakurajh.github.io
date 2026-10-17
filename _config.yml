@@ -1,87 +1,56 @@
-# Site settings 配置站点
-title: '赵建华的个人博客'
-description: '昵称樱花，前端开发者，stm32的忠实粉丝，热爱技术&设计。很高兴能在这里与你分享我对技术和生活的思考。'
-keyword: '赵建华, 赵建华的个人博客, 赵建华的博客, 前端, 前端开发, 前端博客, javascript, vuejs, nodejs, 设计'
-url: '' # your host
+# ==================== 站点信息 ====================
+title: 赵建华的个人博客
+description: Java / C / C# / MySQL 学习笔记，以及我在嵌入式、Web 与科学计算上的一些折腾记录。
+keyword: 赵建华, 小赵, 博客, Java, C语言, C#, MySQL, STM32, 单片机, 嵌入式
 
-# when build blog on server, if you don't need baseurl, you should leave this value blank.
-# 在服务器上建站时，如果你不需要子域名，请将这一格留空
-# if you're using GitHub Pages, set baseurl to your blog's .
-# 如果你在使用 GitHub Pages, 请将 baseurl 设置为你的网址的子域名
-# for example, if your site is "kaeyleo.github.io", then this url should leave blank.
-# 例如，当你的域名是 "kaeyleo.github.io"  时，这个 url 需要留空
-# but if your created a repo named "myblog", and the site is "kaeyleo.github.io/myblog", change baseurl to '/myblog'
-# 但是，如果你创建了一个叫 "myblog" 的网站，此时网址会变成 "kaeyleo.github.io/myblog" ，这时再将 baseurl 设置为 '/myblog'
-baseurl: ''
+author: 赵建华
+nickname: 小赵
+bio: 热爱折腾代码的开发者 —— 嵌入式、Web 后端、桌面工具、科学计算，都想做出点东西
+avatar: /assets/img/gren.png
 
-# Navigation links
+url: ""
+baseurl: ""
+since: 2017
+
+# ==================== 导航 ====================
 nav:
-  home: '/'
-  tags: '/tags.html'
+  - name: 首页
+    url: /
+  - name: 分类
+    url: /categories.html
+  - name: 项目
+    url: /projects.html
+  - name: 关于
+    url: /about.html
 
-# Footer
-footer:
-  since: 2017
+# ==================== 社交链接 ====================
+social:
+  github: https://github.com/sakurajh
+  email: mailto:1853525104@qq.com
+  csdn: https://blog.csdn.net/Sakura_j_h_
+  rss: /rss.xml
 
-# Author 配置博主信息
-author: '赵建华'
-nickname: '樱花'
-bio: 'Java，stm32，HTML，C，WEB开发者，热爱技术&设计，简单乐观爱创造'
-avatar: '/assets/img/gren.png'
+# ==================== 分页 ====================
+paginate: 8
+paginate_path: /page:num/
 
-# Search
-search: true
-
-# Night mode
-nightMode: true
-
-# Comments 评论功能
-comments:
-  disqus: false
-  disqus_url: 'https://liaokeyu.disqus.com/embed.js'
-
-# MathJax 公式支持 by Ray-Eldath
-mathjax: true
-
-# Share
-social-share: true
-social-share-items: ['wechat', 'weibo', 'douban', 'twitter']
-
-# theme color 主题皮肤
-theme-color: 'pink'  # pink or default
-
-# Post header background patterns (when the post no cover): circuitBoard, overlappingCircles, food, glamorous, ticTacToe, seaOfClouds
-postPatterns: 'food'
-
-# SNS settings 配置社交网站
-# url: email, weibo, zhihu, twitter, instagram, juejin, github, douban, facebook, dribble, uicn, jianshu, medium, linkedin
-sns:
-  weibo: '//weibo.com/lovecolcol'
-  juejin: '//juejin.im/user/57a6f434165abd006159b4cc'
-  instagram: '//www.instagram.com/steveliaocn'
-  github: '//github.com/sakurajh'
-
-# Tags 设置标签
-recommend-tags: true # whether or not display recommend-tags on the sidebar
-recommend-condition-size: 12 # a tag will be recommended if the size of it is more than this value
-
-# Build settings
-paginate: 6
-paginate_path: 'page:num'
-exclude: ['node_modules', 'dev', 'package.json', 'gulpfile.js', '.gitignore', 'README.md']
-
-# Markdown
+# ==================== 构建 ====================
 markdown: kramdown
-highlighter: rouge
 kramdown:
   input: GFM
+  syntax_highlighter: rouge
 
-# RSS
-RSS: false
+plugins:
+  - jekyll-paginate
 
-# Permalink
-# See: https://github.com/kaeyleo/jekyll-theme-H2O/issues/35
+exclude:
+  - node_modules
+  - dev
+  - package.json
+  - package-lock.json
+  - gulpfile.js
+  - README.md
+  - screenshot
+
+# 保持与原站一致的固定链接，避免旧链接失效
 permalink: /:year/:month/:day/:title.html
-
-# Plugins
-plugins: [jekyll-paginate]
