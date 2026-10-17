@@ -4,13 +4,25 @@
 <meta name="description" content="{{ page.description | default: site.description | strip_newlines | strip }}">
 <meta name="author" content="{{ site.author }}">
 <meta name="keywords" content="{{ site.keyword }}">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1020" media="(prefers-color-scheme: dark)">
-<meta name="msvalidate.01" content="0995FA03D5E63FFCF82A3C349B8F10E4">
-<meta name="baidu-site-verification" content="codeva-vomKlSGAH9">
+
+<!-- 站长平台验证 -->
+{% if site.seo.google_verification and site.seo.google_verification != "" %}
+<meta name="google-site-verification" content="{{ site.seo.google_verification }}">
+{% endif %}
+{% if site.seo.bing_verification and site.seo.bing_verification != "" %}
+<meta name="msvalidate.01" content="{{ site.seo.bing_verification }}">
+{% endif %}
+{% if site.seo.baidu_verification and site.seo.baidu_verification != "" %}
+<meta name="baidu-site-verification" content="{{ site.seo.baidu_verification }}">
+{% endif %}
 
 <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
 <link rel="canonical" href="{{ page.url | absolute_url }}">
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/rss.xml' | absolute_url }}">
+<link rel="sitemap" type="application/xml" href="{{ '/sitemap.xml' | absolute_url }}">
 
 <!-- Open Graph -->
 <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
@@ -18,8 +30,56 @@
 <meta property="og:description" content="{{ page.description | default: site.description | strip_newlines | strip }}">
 <meta property="og:url" content="{{ page.url | absolute_url }}">
 <meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="{{ site.seo.og_image | absolute_url }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 {% if page.layout == 'post' %}
 <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+<meta property="article:author" content="{{ site.author }}">
+{% endif %}
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+<meta name="twitter:description" content="{{ page.description | default: site.description | strip_newlines | strip }}">
+<meta name="twitter:image" content="{{ site.seo.og_image | absolute_url }}">
+
+<!-- 结构化数据 -->
+{% if page.layout == 'post' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.description | default: site.description | strip_newlines | strip | jsonify }},
+  "image": {{ site.seo.og_image | absolute_url | jsonify }},
+  "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+  "dateModified": {{ page.date | date_to_xmlschema | jsonify }},
+  "inLanguage": "zh-CN",
+  "author": { "@type": "Person", "name": {{ site.author | jsonify }}, "url": {{ site.social.github | jsonify }} },
+  "publisher": { "@type": "Organization", "name": {{ site.title | jsonify }} },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": {{ page.url | absolute_url | jsonify }} }
+}
+</script>
+{% else %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ site.title | jsonify }},
+  "alternateName": {{ site.nickname | jsonify }},
+  "url": {{ '/' | absolute_url | jsonify }},
+  "description": {{ site.description | strip_newlines | strip | jsonify }},
+  "inLanguage": "zh-CN",
+  "author": {
+    "@type": "Person",
+    "name": {{ site.author | jsonify }},
+    "url": {{ '/' | absolute_url | jsonify }},
+    "sameAs": [{{ site.social.github | jsonify }}, {{ site.social.csdn | jsonify }}]
+  }
+}
+</script>
 {% endif %}
 
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">

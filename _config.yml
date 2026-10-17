@@ -8,9 +8,17 @@ nickname: 小赵
 bio: 热爱折腾代码的开发者 —— 嵌入式、Web 后端、桌面工具、科学计算，都想做出点东西
 avatar: /assets/img/gren.png
 
-url: ""
+url: "https://www.sakura.work.gd"
 baseurl: ""
 since: 2017
+
+# ==================== SEO ====================
+# 各搜索引擎站长平台的验证码，填进去后自动输出 meta 标签
+seo:
+  google_verification: ""      # Google Search Console 的 HTML 标记 content 值
+  bing_verification: "0995FA03D5E63FFCF82A3C349B8F10E4"
+  baidu_verification: "codeva-vomKlSGAH9"
+  og_image: /assets/img/og-cover.png
 
 # ==================== 导航 ====================
 nav:
@@ -48,6 +56,7 @@ plugins:
 exclude:
   - node_modules
   - dev
+  - scripts
   - package.json
   - package-lock.json
   - gulpfile.js

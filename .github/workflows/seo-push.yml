@@ -1,0 +1,37 @@
+name: SEO Push
+
+# 每次推送后，把最新 URL 主动提交给搜索引擎
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 生成 URL 列表
+        run: python scripts/seo_urls.py > urls.txt
+
+      - name: 提交给 IndexNow（Bing / Edge / Yandex）
+        run: python scripts/indexnow.py urls.txt
+
+      - name: 提交给百度（需配置 BAIDU_TOKEN 才能生效）
+        env:
+          BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+        run: |
+          if [ -z "$BAIDU_TOKEN" ]; then
+            echo "未配置 BAIDU_TOKEN，跳过百度推送"
+            exit 0
+          fi
+          curl -sS -H 'Content-Type:text/plain' --data-binary @urls.txt \
+            "http://data.zz.baidu.com/urls?site=https://www.sakura.work.gd&token=$BAIDU_TOKEN" || true

@@ -1,4 +1,18 @@
-User-agent: Baiduspider
-Disallow:
-Sitemap: https://sakurajh.org.edu.kg/sitemap.xml
+User-agent: *
 Allow: /
+Disallow: /404.html
+Disallow: /tags.html
+
+Sitemap: https://www.sakura.work.gd/sitemap.xml
+
+User-agent: Baiduspider
+Allow: /
+Sitemap: https://www.sakura.work.gd/sitemap.xml
+
+User-agent: Bingbot
+Allow: /
+Sitemap: https://www.sakura.work.gd/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+Sitemap: https://www.sakura.work.gd/sitemap.xml
