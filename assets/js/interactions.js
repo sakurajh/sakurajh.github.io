@@ -702,4 +702,48 @@
       requestAnimationFrame(parallaxLoop);
     })();
   }
+
+  /* ============ 25. 一键复制（邮箱 / 订阅地址等） ============ */
+  document.querySelectorAll('[data-copy]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      var text = el.getAttribute('data-copy') || '';
+      var ok = function () { showToast('已复制：' + text); };
+      var fail = function () { showToast('复制失败，请手动复制：' + text); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok).catch(fail);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); ok(); } catch (e) { fail(); }
+        document.body.removeChild(ta);
+      }
+    });
+  });
+
+  /* ============ 26. 标题锚点（悬浮显示 #，点击可复制小节链接） ============ */
+  if (bodyContent) {
+    bodyContent.querySelectorAll('h2[id], h3[id]').forEach(function (h) {
+      if (h.querySelector('.heading-anchor')) return;
+      var a = document.createElement('a');
+      a.className = 'heading-anchor';
+      a.href = '#' + h.id;
+      a.textContent = '#';
+      a.setAttribute('aria-label', '复制本节链接');
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var url = window.location.origin + window.location.pathname + '#' + h.id;
+        history.replaceState(null, '', '#' + h.id);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () {
+            showToast('小节链接已复制');
+          }).catch(function () {});
+        }
+      });
+      h.appendChild(a);
+    });
+  }
 })();

@@ -5,6 +5,16 @@ layout: default
 
 <article class="post-layout wrap">
   <div class="post-main">
+    {% assign cat0 = page.categories | first %}
+    {% include cat-label.html cat=cat0 %}
+    <nav class="crumbs" aria-label="面包屑导航">
+      <a href="{{ '/' | relative_url }}">首页</a>
+      <span class="sep">/</span>
+      <a href="{{ '/categories.html' | relative_url }}#{{ cat0 }}">{{ cat_label }}</a>
+      <span class="sep">/</span>
+      <span class="cur">{{ page.title | truncate: 26 }}</span>
+    </nav>
+
     <header class="post-head">
       <div class="post-chips">
         {% assign cat = page.categories | first %}
@@ -54,6 +64,13 @@ layout: default
     </nav>
 
     <p class="post-back"><a href="{{ '/' | relative_url }}">← 返回首页</a></p>
+
+    <div class="license">
+      <span class="license-badge">CC BY-NC-SA 4.0</span>
+      <p>本文由 <a href="{{ '/about.html' | relative_url }}">赵华</a> 创作，采用
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener nofollow">知识共享 署名-非商业性使用-相同方式共享 4.0</a> 许可协议。
+        转载请注明作者并附上<a href="{{ page.url | absolute_url }}">原文链接</a>。</p>
+    </div>
 
     {% assign cat = page.categories | first %}
     {% assign related = site.categories[cat] %}

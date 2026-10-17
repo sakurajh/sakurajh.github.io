@@ -766,3 +766,224 @@ body.is-leaving .page-main {
   .bg-grid { transition: none; }
   .bg-deco { --bgx: 0px; --bgy: 0px; }
 }
+
+/* ==========================================================================
+   第四轮：面包屑 / 标题锚点 / 订阅页 / 标签页 / 版权声明
+   ========================================================================== */
+
+/* ---------- 面包屑 ---------- */
+.crumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.crumbs a { color: var(--muted); transition: color 0.15s ease; }
+.crumbs a:hover { color: var(--brand); }
+.crumbs .sep { opacity: 0.45; }
+.crumbs .cur { color: var(--text-2); max-width: 46vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- 标题锚点 ---------- */
+.markdown-body h2,
+.markdown-body h3 { position: relative; }
+
+.heading-anchor {
+  margin-left: 8px;
+  color: var(--brand);
+  opacity: 0;
+  font-weight: 400;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+  font-size: 0.85em;
+}
+
+.markdown-body h2:hover .heading-anchor,
+.markdown-body h3:hover .heading-anchor,
+.heading-anchor:focus { opacity: 0.55; }
+
+.heading-anchor:hover { opacity: 1 !important; }
+
+@media (hover: none) {
+  .heading-anchor { opacity: 0; }
+}
+
+/* ---------- 版权声明 ---------- */
+.license {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 26px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px dashed var(--border-strong);
+  background: var(--bg-soft);
+}
+
+.license-badge {
+  flex: 0 0 auto;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: rgba(124, 58, 237, 0.12);
+  color: var(--brand);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.license p { margin: 0; font-size: 12.5px; line-height: 1.7; color: var(--muted); }
+.license a { color: var(--text-2); text-decoration: underline; text-underline-offset: 2px; }
+.license a:hover { color: var(--brand); }
+
+/* ---------- 订阅页 ---------- */
+.sub-card {
+  display: flex;
+  gap: 22px;
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: radial-gradient(120% 140% at 0% 0%, rgba(124, 58, 237, 0.1), transparent 55%), var(--surface);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 30px;
+}
+
+.sub-badge {
+  flex: 0 0 auto;
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--grad);
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 12px 26px -12px rgba(124, 58, 237, 0.9);
+}
+
+.sub-body h2 { margin: 0 0 8px; font-size: 19px; }
+.sub-body p { margin: 0 0 16px; color: var(--text-2); font-size: 14px; line-height: 1.7; }
+
+.sub-url {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.sub-url code {
+  flex: 1 1 320px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--code-bg);
+  color: #a5b4fc;
+  font-size: 12.5px;
+  font-family: "Cascadia Code", Consolas, monospace;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.sub-readers { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.sub-help h2 { margin: 0 0 14px; font-size: 18px; }
+
+.sub-steps { margin: 0 0 20px; padding-left: 20px; color: var(--text-2); font-size: 14.5px; line-height: 2; }
+.sub-steps b { color: var(--text); }
+
+.sub-note {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.sub-note b { color: var(--text); }
+.sub-foot { margin-top: 22px; font-size: 13px; color: var(--muted); }
+.sub-foot a { color: var(--brand); text-decoration: underline; text-underline-offset: 2px; }
+
+@media (max-width: 720px) {
+  .sub-card { flex-direction: column; padding: 22px; }
+  .sub-badge { width: 48px; height: 48px; font-size: 13px; }
+}
+
+/* ---------- 标签页 ---------- */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-2);
+  font-size: 13px;
+  transition: all 0.16s ease;
+}
+
+.tag-pill em {
+  font-style: normal;
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--bg-soft);
+  padding: 0 6px;
+  border-radius: 5px;
+}
+
+.tag-pill:hover {
+  color: var(--brand);
+  border-color: rgba(124, 58, 237, 0.35);
+  transform: translateY(-1px);
+}
+
+.tag-section { margin-bottom: 26px; }
+
+.tag-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.tag-head h2 { margin: 0; font-size: 17px; letter-spacing: -0.2px; }
+
+.tag-list { list-style: none; margin: 0; padding: 0; }
+.tag-list li { border-bottom: 1px solid var(--border); }
+.tag-list li:last-child { border-bottom: none; }
+
+.tag-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 9px 2px;
+  color: var(--text);
+  font-size: 14px;
+  transition: color 0.15s ease, padding-left 0.15s ease;
+}
+
+.tag-list a:hover { color: var(--brand); padding-left: 6px; }
+.tag-list time { flex: 0 0 76px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tag-list span { flex: 1; }
+
+/* ---------- button 版社交按钮重置 ---------- */
+button.social-btn { padding: 0; font-family: inherit; cursor: pointer; }

@@ -1,21 +1,40 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>正在跳转到文章分类 · 赵华的个人博客</title>
-  <link rel="canonical" href="{{ '/categories.html' | relative_url }}">
-  <meta http-equiv="refresh" content="0; url={{ '/categories.html' | relative_url }}">
-  <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: -apple-system, "Segoe UI", "Microsoft YaHei UI", sans-serif; background: #f6f7fb; color: #475569; }
-    .box { text-align: center; }
-    a { color: #7c3aed; }
-  </style>
-</head>
-<body>
-  <div class="box">
-    <p>标签页已合并到「分类」，正在跳转…</p>
-    <p><a href="{{ '/categories.html' | relative_url }}">点此前往文章分类</a></p>
+---
+layout: default
+title: 标签
+description: 按标签浏览全部文章
+---
+<section class="wrap page-block">
+  <header class="page-head">
+    <span class="kicker">TAGS</span>
+    <h1>标签</h1>
+    <p class="page-sub">共 {{ site.tags.size }} 个标签 · {{ site.posts.size }} 篇文章</p>
+  </header>
+
+  <div class="tag-cloud">
+    {% assign tags = site.tags | sort %}
+    {% for tag in tags %}
+    <a class="tag-pill" href="#{{ tag[0] | slugify }}">
+      {{ tag[0] }}<em>{{ tag[1].size }}</em>
+    </a>
+    {% endfor %}
   </div>
-</body>
-</html>
+
+  {% for tag in tags %}
+  <section class="tag-section" id="{{ tag[0] | slugify }}">
+    <div class="tag-head">
+      <h2>{{ tag[0] }}</h2>
+      <span class="cat-count">{{ tag[1].size }} 篇</span>
+    </div>
+    <ul class="tag-list">
+      {% for post in tag[1] %}
+      <li>
+        <a href="{{ post.url | relative_url }}">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
+          <span>{{ post.title }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</section>

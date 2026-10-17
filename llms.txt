@@ -1,0 +1,45 @@
+# 赵华的个人博客（sakurajh.github.io）
+
+> 一个中文技术博客：Java / C / C# / MySQL 学习笔记，嵌入式（STM32、51 单片机、OpenMV），
+> Web 全栈（FastAPI、SpringBoot），以及科学计算方向的桌面工具（超算作业提交、分子动力学流程管理）。
+
+站点地址：https://www.sakura.work.gd
+作者：赵华（小赵 / sakurajh）
+GitHub：https://github.com/sakurajh
+CSDN：https://blog.csdn.net/Sakura_j_h_
+联系邮箱：1853525104@qq.com
+
+## 内容结构
+
+- 首页：https://www.sakura.work.gd/
+- 时间线（全部文章）：https://www.sakura.work.gd/archive.html
+- 分类：https://www.sakura.work.gd/categories.html
+- 标签：https://www.sakura.work.gd/tags.html
+- 项目：https://www.sakura.work.gd/projects.html
+- 关于：https://www.sakura.work.gd/about.html
+- RSS：https://www.sakura.work.gd/rss.xml
+- Sitemap：https://www.sakura.work.gd/sitemap.xml
+
+## 主要分类
+
+- 技术：Java、C#、MySQL、STM32 等课程与实战笔记
+- 项目：个人项目的完整复盘（背景、技术选型、踩坑）
+- 笔记：零散学习记录
+- 测试：早期文章
+
+## 代表项目
+
+- GPU 切换助手（西电超算 JSUB 图形化提交工具）
+- MD Workflow Manager（分子动力学流程管理，Windows GUI + WSL2 计算）
+- 情绪识别教学系统（FastAPI + OpenCV + 大模型）
+- 旅行摄影日志（原生 JS + Supabase）
+
+## 引用说明
+
+文章采用 CC BY-NC-SA 4.0 许可：可转载，需署名并附原文链接，不得商用，衍生作品需同协议共享。
+
+## 抓取建议
+
+- 全站为静态 HTML（Jekyll 生成），无需执行 JavaScript 即可获得正文
+- 文章固定链接格式：/YYYY/MM/DD/slug.html
+- 请优先使用 RSS 或 Sitemap 获取最新内容

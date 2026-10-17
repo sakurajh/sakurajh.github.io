@@ -1,0 +1,15 @@
+{
+  "name": "赵华的个人博客",
+  "short_name": "赵华博客",
+  "description": "Java / C / C# / MySQL 学习笔记，嵌入式、Web 与科学计算的折腾记录",
+  "lang": "zh-CN",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f7fb",
+  "theme_color": "#7c3aed",
+  "icons": [
+    { "src": "/assets/img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

@@ -1,0 +1,47 @@
+---
+layout: default
+title: 订阅
+description: 用 RSS 订阅赵华的博客，新文章直接出现在你的阅读器里，不用注册、没有算法
+---
+<section class="wrap page-block">
+  <header class="page-head">
+    <span class="kicker">SUBSCRIBE</span>
+    <h1>订阅更新</h1>
+    <p class="page-sub">不用注册、没有算法推荐、不打扰 —— 新文章直接出现在你的阅读器里</p>
+  </header>
+
+  <div class="sub-card">
+    <div class="sub-badge">RSS</div>
+    <div class="sub-body">
+      <h2>RSS / Atom 订阅</h2>
+      <p>复制下面的地址，粘到任意 RSS 阅读器（Feedly、Inoreader、NetNewsWire、Follow…）就能订阅本站全部更新。</p>
+      <div class="sub-url">
+        <code>{{ '/rss.xml' | absolute_url }}</code>
+        <button type="button" class="share-btn" data-copy="{{ '/rss.xml' | absolute_url }}">复制地址</button>
+      </div>
+      <div class="sub-readers">
+        <a class="btn-ghost" href="https://feedly.com/i/subscription/feed/{{ '/rss.xml' | absolute_url | uri_escape }}" target="_blank" rel="noopener">用 Feedly 订阅</a>
+        <a class="btn-ghost" href="https://www.inoreader.com/?add_feed={{ '/rss.xml' | absolute_url | uri_escape }}" target="_blank" rel="noopener">用 Inoreader 订阅</a>
+        <a class="btn-ghost" href="{{ '/rss.xml' | relative_url }}" target="_blank" rel="noopener">查看原始 XML</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="sub-help">
+    <h2>怎么用？三步</h2>
+    <ol class="sub-steps">
+      <li><b>装一个阅读器</b>：手机用 Feedly / Inoreader，电脑用 NetNewsWire（Mac）或 Fluent Reader（Windows）</li>
+      <li><b>把地址粘进去</b>：点上面的「复制地址」，在阅读器里选「添加订阅源」</li>
+      <li><b>等更新</b>：以后我发文，它会自动出现，不用来网站刷新</li>
+    </ol>
+
+    <div class="sub-note">
+      <b>为什么推荐 RSS？</b>
+      <span>不依赖任何平台的推荐算法，不会被限流，也不会收集你的阅读习惯。你订阅的是「内容」，不是「账号」。</span>
+    </div>
+
+    <p class="sub-foot">
+      也可以从 <a href="{{ '/archive.html' | relative_url }}">时间线</a> 或 <a href="{{ '/categories.html' | relative_url }}">分类</a> 随便逛逛。
+    </p>
+  </section>
+</section>

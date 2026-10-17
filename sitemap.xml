@@ -9,7 +9,7 @@ layout: null
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-{% assign static_pages = "/archive.html,/categories.html,/projects.html,/about.html" | split: "," %}
+{% assign static_pages = "/archive.html,/categories.html,/tags.html,/projects.html,/about.html,/subscribe.html" | split: "," %}
 {% for p in static_pages %}
   <url>
     <loc>{{ p | absolute_url }}</loc>
