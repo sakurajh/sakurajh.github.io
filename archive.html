@@ -1,0 +1,35 @@
+---
+layout: default
+title: 归档
+description: 按时间线浏览全部文章
+---
+<section class="wrap page-block">
+  <header class="page-head">
+    <span class="kicker">ARCHIVE</span>
+    <h1>时间线</h1>
+    <p class="page-sub">共 {{ site.posts.size }} 篇 · 从 {{ site.posts.last.date | date: '%Y 年' }} 到现在</p>
+  </header>
+
+  {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+  {% for year in posts_by_year %}
+  <section class="archive-year" data-reveal>
+    <div class="archive-head">
+      <h2>{{ year.name }}</h2>
+      <span class="cat-count">{{ year.items.size }} 篇</span>
+    </div>
+    <ul class="archive-list">
+      {% for post in year.items %}
+      {% assign c = post.categories | first %}
+      {% include cat-label.html cat=c %}
+      <li>
+        <a href="{{ post.url | relative_url }}">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%m-%d' }}</time>
+          <span class="pl-title">{{ post.title }}</span>
+          <em class="pl-cat">{{ cat_label }}</em>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</section>

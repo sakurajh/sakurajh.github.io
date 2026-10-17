@@ -28,8 +28,18 @@
     <div class="search-results" id="searchResults">
       <p class="search-tip">输入关键词开始搜索，支持标题与正文</p>
     </div>
+    <div class="quick-actions">
+      <a href="{{ '/' | relative_url }}">首页</a>
+      <a href="{{ '/archive.html' | relative_url }}">时间线</a>
+      <a href="{{ '/categories.html' | relative_url }}">分类</a>
+      <a href="{{ '/projects.html' | relative_url }}">项目</a>
+      <a href="{{ '/about.html' | relative_url }}">关于</a>
+      <button type="button" data-quick="theme">切换主题</button>
+    </div>
   </div>
 </div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <button class="to-top" id="toTop" aria-label="回到顶部" hidden>
   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>

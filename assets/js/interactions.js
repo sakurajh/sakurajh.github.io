@@ -349,4 +349,216 @@
       });
     });
   }
+
+  /* ============ 16. 轻提示 ============ */
+  var toastEl = document.getElementById('toast');
+  var toastTimer = null;
+  function showToast(msg) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('is-visible'); }, 1900);
+  }
+
+  /* ============ 17. 分享栏 ============ */
+  var shareBar = document.querySelector('.share-bar');
+  if (shareBar) {
+    shareBar.addEventListener('click', function (e) {
+      var btn = e.target.closest('.share-btn');
+      if (!btn) return;
+      var kind = btn.getAttribute('data-share');
+      var url = window.location.href;
+      var title = document.title;
+
+      if (kind === 'copy') {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () {
+            showToast('链接已复制');
+          }).catch(function () {
+            showToast('复制失败，请手动复制地址栏');
+          });
+        } else {
+          showToast('请手动复制地址栏链接');
+        }
+      } else if (kind === 'weibo') {
+        window.open('https://service.weibo.com/share/share.php?url=' + encodeURIComponent(url) +
+          '&title=' + encodeURIComponent(title), '_blank', 'width=620,height=540');
+      } else if (kind === 'x') {
+        window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(url) +
+          '&text=' + encodeURIComponent(title), '_blank', 'width=620,height=540');
+      } else if (kind === 'print') {
+        window.print();
+      }
+    });
+  }
+
+  /* ============ 18. 正文字号 ============ */
+  var bodyContent = document.getElementById('postContent');
+  var fontCtrl = document.querySelector('.font-ctrl');
+  if (bodyContent && fontCtrl) {
+    var scaleMap = { '-1': '15px', '0': '16px', '1': '18.5px' };
+    var currentScale = '0';
+    try { currentScale = localStorage.getItem('fontScale') || '0'; } catch (e) {}
+    if (!scaleMap[currentScale]) currentScale = '0';
+
+    var applyScale = function (k) {
+      bodyContent.style.fontSize = scaleMap[k] || '16px';
+      fontCtrl.querySelectorAll('button').forEach(function (b) {
+        b.classList.toggle('is-active', b.getAttribute('data-font') === k);
+      });
+    };
+    applyScale(currentScale);
+
+    fontCtrl.addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      currentScale = b.getAttribute('data-font');
+      try { localStorage.setItem('fontScale', currentScale); } catch (err) {}
+      applyScale(currentScale);
+    });
+  }
+
+  /* ============ 19. 移动端目录抽屉 ============ */
+  var tocFab = document.getElementById('tocFab');
+  var tocDrawer = document.getElementById('tocDrawer');
+  var tocMobile = document.getElementById('tocListMobile');
+  if (tocFab && tocDrawer) {
+    var deskLinks = document.querySelectorAll('#tocList a');
+    if (deskLinks.length && tocMobile) {
+      deskLinks.forEach(function (a) {
+        var link = document.createElement('a');
+        link.href = a.getAttribute('href');
+        link.textContent = a.textContent;
+        if (a.classList.contains('toc-h3')) link.className = 'toc-h3';
+        link.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          var target = document.getElementById(link.getAttribute('href').slice(1));
+          if (target) {
+            window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 76, behavior: 'smooth' });
+          }
+          closeTocDrawer();
+        });
+        tocMobile.appendChild(link);
+      });
+    } else {
+      tocFab.style.display = 'none';
+    }
+
+    var openTocDrawer = function () {
+      tocDrawer.hidden = false;
+      document.body.style.overflow = 'hidden';
+    };
+    var closeTocDrawer = function () {
+      tocDrawer.hidden = true;
+      document.body.style.overflow = '';
+    };
+
+    tocFab.addEventListener('click', openTocDrawer);
+    var tocCloseBtn = document.getElementById('tocClose');
+    if (tocCloseBtn) tocCloseBtn.addEventListener('click', closeTocDrawer);
+    tocDrawer.addEventListener('click', function (e) {
+      if (e.target === tocDrawer) closeTocDrawer();
+    });
+  }
+
+  /* ============ 20. 阅读位置：恢复提示 + 卡片进度 ============ */
+  if (bodyContent) {
+    var readKey = 'read:' + window.location.pathname;
+    var savedPct = 0;
+    try { savedPct = parseFloat(localStorage.getItem(readKey) || '0'); } catch (e) {}
+
+    var resumeBar = document.getElementById('resumeBar');
+    if (resumeBar && savedPct > 8 && savedPct < 92) {
+      var resumeText = document.getElementById('resumeText');
+      if (resumeText) resumeText.textContent = '上次读到 ' + Math.round(savedPct) + '%';
+      resumeBar.hidden = false;
+
+      var hideResume = function () { resumeBar.hidden = true; };
+      var resumeGo = document.getElementById('resumeGo');
+      if (resumeGo) {
+        resumeGo.addEventListener('click', function () {
+          var rect = bodyContent.getBoundingClientRect();
+          var startTop = rect.top + window.pageYOffset;
+          var targetY = startTop + bodyContent.offsetHeight * (savedPct / 100) - window.innerHeight * 0.3;
+          window.scrollTo({ top: Math.max(targetY, 0), behavior: 'smooth' });
+          hideResume();
+        });
+      }
+      var resumeClose = document.getElementById('resumeClose');
+      if (resumeClose) resumeClose.addEventListener('click', hideResume);
+      setTimeout(hideResume, 14000);
+    }
+
+    var saveTimer = null;
+    window.addEventListener('scroll', function () {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function () {
+        var rect = bodyContent.getBoundingClientRect();
+        var total = rect.height - window.innerHeight * 0.5;
+        var passed = Math.max(-rect.top + window.innerHeight * 0.3, 0);
+        var pct = total > 0 ? Math.min(passed / total, 1) : 1;
+        try { localStorage.setItem(readKey, String(Math.round(pct * 100))); } catch (e) {}
+      }, 420);
+    }, { passive: true });
+  }
+
+  document.querySelectorAll('.post-card-link').forEach(function (link) {
+    var href = link.getAttribute('href');
+    if (!href) return;
+    var v = null;
+    try { v = localStorage.getItem('read:' + href); } catch (e) {}
+    if (!v) return;
+    var n = parseInt(v, 10);
+    if (!(n > 5 && n < 95)) return;
+    var foot = link.querySelector('.post-card-foot');
+    if (!foot) return;
+    var badge = document.createElement('span');
+    badge.className = 'read-badge';
+    badge.textContent = '读到 ' + n + '%';
+    foot.insertBefore(badge, foot.firstChild);
+  });
+
+  /* ============ 21. 搜索面板快捷入口 ============ */
+  document.querySelectorAll('[data-quick="theme"]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = document.getElementById('themeBtn');
+      if (t) t.click();
+    });
+  });
+
+  /* ============ 22. 代码语言标签 & 长代码折叠 ============ */
+  if (bodyContent) {
+    bodyContent.querySelectorAll('pre.highlight').forEach(function (pre) {
+      var block = pre.closest('.highlight') || pre;
+      var outer = pre.closest('div[class*="language-"]') || pre.parentElement;
+      if (!outer || outer.dataset.codeReady === '1') return;
+      outer.dataset.codeReady = '1';
+
+      /* 语言标签 */
+      var langMatch = (outer.className || '').match(/language-([\w+#-]+)/);
+      if (langMatch) {
+        var label = document.createElement('span');
+        label.className = 'code-lang';
+        label.textContent = langMatch[1];
+        block.appendChild(label);
+        outer.classList.add('has-lang');
+      }
+
+      /* 长代码折叠 */
+      var lines = pre.querySelectorAll('.cl').length;
+      if (lines > 28) {
+        block.classList.add('is-collapsed');
+        var toggle = document.createElement('button');
+        toggle.type = 'button';
+        toggle.className = 'code-toggle';
+        toggle.textContent = '展开全部 ' + lines + ' 行';
+        toggle.addEventListener('click', function () {
+          var collapsed = block.classList.toggle('is-collapsed');
+          toggle.textContent = collapsed ? '展开全部 ' + lines + ' 行' : '收起代码';
+        });
+        if (block.insertAdjacentElement) block.insertAdjacentElement('afterend', toggle);
+      }
+    });
+  }
 })();

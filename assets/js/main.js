@@ -233,15 +233,18 @@
       img.addEventListener('click', function () { openLightbox(img.src, img.alt); });
     });
 
-    /* 代码块：复制按钮 */
-    $$('.highlight', article).forEach(function (block) {
+    /* 代码块：复制按钮（以 pre 为唯一入口，避免 .highlight 在 div 与 pre 上重复匹配） */
+    $$('pre.highlight', article).forEach(function (pre) {
+      var block = pre.closest('.highlight') || pre;
+      if (block.dataset.copyReady === '1') return;
+      block.dataset.copyReady = '1';
+
       var btn = document.createElement('button');
       btn.className = 'copy-btn';
       btn.type = 'button';
       btn.textContent = '复制';
       btn.addEventListener('click', function () {
-        var code = block.querySelector('pre');
-        var text = code ? code.innerText : '';
+        var text = pre.innerText;
         var done = function () {
           btn.textContent = '已复制 ✓';
           setTimeout(function () { btn.textContent = '复制'; }, 1600);

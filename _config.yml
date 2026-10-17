@@ -16,6 +16,8 @@ since: 2017
 nav:
   - name: 首页
     url: /
+  - name: 归档
+    url: /archive.html
   - name: 分类
     url: /categories.html
   - name: 项目
