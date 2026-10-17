@@ -7,12 +7,21 @@ description: 我在 GitHub 上的开源项目与学习仓库
   <header class="page-head">
     <span class="kicker">PROJECTS</span>
     <h1>我的项目</h1>
-    <p class="page-sub">开源作品与学习仓库 · 点开卡片可查看源码</p>
+    <p class="page-sub">开源作品与学习仓库 · 点击卡片可查看源码</p>
   </header>
+
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn is-active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="desktop">桌面工具</button>
+    <button class="filter-btn" data-filter="web">Web</button>
+    <button class="filter-btn" data-filter="embedded">嵌入式</button>
+    <button class="filter-btn" data-filter="harmony">鸿蒙</button>
+    <button class="filter-btn" data-filter="learn">学习仓库</button>
+  </div>
 
   <div class="project-grid">
     {% for p in site.data.projects %}
-    <article class="project-card{% if p.featured %} is-featured{% endif %}" data-repo="{{ p.repo }}">
+    <article class="project-card{% if p.featured %} is-featured{% endif %}" data-repo="{{ p.repo }}" data-tags="{{ p.group }}" data-reveal>
       <div class="project-top">
         <span class="lang-dot" style="background: {{ p.color }}"></span>
         <span class="project-lang">{{ p.lang }}</span>

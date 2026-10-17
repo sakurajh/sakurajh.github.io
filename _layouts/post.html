@@ -43,6 +43,24 @@ layout: default
     </nav>
 
     <p class="post-back"><a href="{{ '/' | relative_url }}">← 返回首页</a></p>
+
+    {% assign cat = page.categories | first %}
+    {% assign related = site.categories[cat] %}
+    {% if related.size > 1 %}
+    <section class="related">
+      <h3>同类文章</h3>
+      <div class="related-list">
+        {% for p in related limit:5 %}
+          {% if p.url != page.url %}
+          <a class="related-item" href="{{ p.url | relative_url }}">
+            <b>{{ p.title }}</b>
+            <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: '%Y-%m-%d' }}</time>
+          </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
   </div>
 
   {% if page.tags contains 'mathjax' or page.mathjax %}

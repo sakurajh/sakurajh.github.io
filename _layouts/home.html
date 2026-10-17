@@ -1,35 +1,39 @@
 ---
 layout: default
 ---
-<section class="hero">
-  <div class="wrap hero-inner">
-    <div class="hero-avatar">
-      <img src="{{ site.avatar | relative_url }}" alt="{{ site.author }}" width="96" height="96">
-    </div>
-    <div class="hero-text">
-      <h1>嗨，我是{{ site.nickname }} <span class="wave">👋</span></h1>
-      <p class="hero-bio">{{ site.bio }}</p>
-      <p class="hero-stats">
+<section class="hero2">
+  <div class="wrap hero2-inner">
+    <div class="hero2-left">
+      <span class="status-badge"><i></i> 正在做：科学计算流程自动化 · 超算工具</span>
+      <h1 class="hero2-title" data-split>嗨，我是小赵<span class="grad">。</span></h1>
+      <p class="hero2-sub">热爱折腾代码的开发者 —— 把重复劳动变成一键脚本，把想法做成能跑起来的东西。</p>
+      <div class="hero2-cta">
+        <a class="btn-primary" href="{{ '/categories.html' | relative_url }}">翻翻文章</a>
+        <a class="btn-ghost" href="{{ '/projects.html' | relative_url }}">看我的项目</a>
+      </div>
+      <div class="hero2-meta">
         <span>{{ site.posts.size }} 篇文章</span>
         <span>{{ site.categories.size }} 个分类</span>
         <span>从 {{ site.since }} 年开始记录</span>
-      </p>
-      <div class="hero-links">
-        <a class="pill" href="{{ site.social.github }}" target="_blank" rel="noopener">
-          <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-          GitHub
+      </div>
+    </div>
+
+    <div class="hero2-right">
+      <div class="avatar-ring">
+        <img src="{{ site.avatar | relative_url }}" alt="{{ site.author }}" width="150" height="150">
+      </div>
+      <div class="hero2-socials">
+        <a class="social-btn" href="{{ site.social.github }}" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
         </a>
-        <a class="pill" href="{{ site.social.email }}">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
-          邮箱
+        <a class="social-btn" href="{{ site.social.csdn }}" target="_blank" rel="noopener" aria-label="CSDN" title="CSDN">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h9M4 12h13M4 18h7"/></svg>
         </a>
-        <a class="pill" href="{{ site.social.csdn }}" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h9M4 12h13M4 18h7"/></svg>
-          CSDN
+        <a class="social-btn" href="{{ site.social.email }}" aria-label="邮箱" title="邮箱">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
         </a>
-        <a class="pill" href="{{ '/projects.html' | relative_url }}">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7h6l2 2h10v9a2 2 0 0 1-2 2H3z"/></svg>
-          我的项目
+        <a class="social-btn" href="{{ site.social.rss | relative_url }}" aria-label="RSS" title="RSS">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5a14 14 0 0 1 14 14M5 11a8 8 0 0 1 8 8"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
         </a>
       </div>
     </div>
@@ -42,11 +46,35 @@ layout: default
     <a class="more" href="{{ '/categories.html' | relative_url }}">全部文章 →</a>
   </div>
 
+  {% assign feat = paginator.posts | first %}
+  {% if feat %}{% include post-feature.html post=feat %}{% endif %}
+
   <div class="post-grid">
-    {% for post in paginator.posts %}
+    {% for post in paginator.posts offset:1 %}
       {% include post-card.html post=post %}
     {% endfor %}
   </div>
 
   {% include pager.html %}
+</section>
+
+<section class="wrap section" style="padding-top: 0;">
+  <div class="section-head">
+    <h2>精选项目</h2>
+    <a class="more" href="{{ '/projects.html' | relative_url }}">全部项目 →</a>
+  </div>
+  <div class="projects-strip">
+    {% for p in site.data.projects %}
+      {% if p.featured %}
+      <article class="strip-card" data-reveal>
+        <div class="strip-top">
+          <span class="lang-dot" style="background: {{ p.color }}"></span>{{ p.lang }}
+        </div>
+        <h3><a href="https://github.com/sakurajh/{{ p.repo }}" target="_blank" rel="noopener">{{ p.name }}</a></h3>
+        <p>{{ p.desc }}</p>
+        <a class="arrow" href="https://github.com/sakurajh/{{ p.repo }}" target="_blank" rel="noopener">查看源码 →</a>
+      </article>
+      {% endif %}
+    {% endfor %}
+  </div>
 </section>

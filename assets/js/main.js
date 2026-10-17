@@ -14,8 +14,13 @@
   if (themeBtn) {
     themeBtn.addEventListener('click', function () {
       var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('theme', next); } catch (e) {}
+      var apply = function () {
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      };
+      /* 支持的浏览器用圆形扩散过渡，其余直接切换 */
+      if (document.startViewTransition) document.startViewTransition(apply);
+      else apply();
     });
   }
 

@@ -1,0 +1,14 @@
+{% assign cat = include.post.categories | first %}
+{% include cat-label.html cat=cat %}
+{% assign body = include.post.content | strip_html | strip_newlines | replace: '#', '' | strip %}
+<a class="post-feature" href="{{ include.post.url | relative_url }}" data-reveal>
+  <span class="chip">{{ cat_label }}</span>
+  <h2>{{ include.post.title }}</h2>
+  <p>{{ body | truncate: 190 }}</p>
+  <div class="post-feature-meta">
+    <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%Y-%m-%d' }}</time>
+    <span class="dot"></span>
+    <span>约 {{ include.post.content | strip_html | size | divided_by: 400 | plus: 1 }} 分钟</span>
+    <span class="go">阅读全文 <span class="arrow">→</span></span>
+  </div>
+</a>
