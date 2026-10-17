@@ -8,7 +8,8 @@ layout: default
     <header class="post-head">
       <div class="post-chips">
         {% assign cat = page.categories | first %}
-        <a class="chip" href="{{ '/categories.html' | relative_url }}#{{ cat }}">{{ cat | default: '笔记' }}</a>
+        {% include cat-label.html cat=cat %}
+        <a class="chip" href="{{ '/categories.html' | relative_url }}#{{ cat }}">{{ cat_label }}</a>
         {% for tag in page.tags %}<span class="chip chip-ghost">{{ tag }}</span>{% endfor %}
       </div>
       <h1>{{ page.title }}</h1>

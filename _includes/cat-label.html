@@ -1,0 +1,8 @@
+{%- assign c = include.cat -%}
+{%- case c -%}
+  {%- when 'text' -%}{%- assign cat_label = '笔记' -%}
+  {%- when 'technology' -%}{%- assign cat_label = '技术' -%}
+  {%- when 'test' -%}{%- assign cat_label = '测试' -%}
+  {%- when '技术' -%}{%- assign cat_label = '技术' -%}
+  {%- else -%}{%- assign cat_label = c -%}
+{%- endcase -%}

@@ -12,9 +12,10 @@ description: 按分类浏览全部文章
 
   {% assign cats = site.categories | sort %}
   {% for cat in cats %}
+  {% include cat-label.html cat=cat[0] %}
   <section class="cat-block" id="{{ cat[0] }}">
     <div class="cat-head">
-      <h2>{{ cat[0] }}</h2>
+      <h2>{{ cat_label }}</h2>
       <span class="cat-count">{{ cat[1].size }} 篇</span>
     </div>
     <ul class="post-list">
