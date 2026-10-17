@@ -9,24 +9,21 @@ layout: null
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
-  {% for page in site.pages %}
-    {% if page.url contains '.html' and page.url != '/404.html' and page.url != '/tags.html' %}
+{% assign static_pages = "/archive.html,/categories.html,/projects.html,/about.html" | split: "," %}
+{% for p in static_pages %}
   <url>
-    <loc>{{ page.url | absolute_url }}</loc>
+    <loc>{{ p | absolute_url }}</loc>
     <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-    {% endif %}
-  {% endfor %}
-
-  {% for post in site.posts %}
+{% endfor %}
+{% for post in site.posts %}
   <url>
     <loc>{{ post.url | absolute_url }}</loc>
     <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  {% endfor %}
+{% endfor %}
 </urlset>
