@@ -15,7 +15,7 @@ since: 2017
 # ==================== SEO ====================
 # 各搜索引擎站长平台的验证码，填进去后自动输出 meta 标签
 seo:
-  google_verification: ""      # Google Search Console 的 HTML 标记 content 值
+  google_verification: "C-HTCemTv1jFIs_dgxWge72irtmLQRLe3w4KMiO-ulw"
   bing_verification: "0995FA03D5E63FFCF82A3C349B8F10E4"
   baidu_verification: "codeva-vomKlSGAH9"
   og_image: /assets/img/og-cover.png
