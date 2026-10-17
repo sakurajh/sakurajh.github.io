@@ -103,6 +103,18 @@
         });
       }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
       revealEls.forEach(function (el) { io.observe(el); });
+
+      /* 兜底：首屏内（含 1 屏缓冲）的元素立即显示，避免观察器延迟导致空白 */
+      requestAnimationFrame(function () {
+        revealEls.forEach(function (el, i) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight * 1.15 && r.bottom > -80) {
+            el.style.transitionDelay = Math.min(i, 10) * 45 + 'ms';
+            el.classList.add('is-in');
+            io.unobserve(el);
+          }
+        });
+      });
     }
   }
 

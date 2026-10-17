@@ -31,12 +31,14 @@
 <script>
   /* 在渲染前确定主题，避免刷新闪烁 */
   (function () {
+    var el = document.documentElement;
+    el.classList.add('js');
     try {
       var saved = localStorage.getItem('theme');
       if (!saved) {
         saved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
-      document.documentElement.setAttribute('data-theme', saved);
+      el.setAttribute('data-theme', saved);
     } catch (e) {}
   })();
 </script>

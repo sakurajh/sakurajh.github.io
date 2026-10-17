@@ -41,6 +41,7 @@ html {
   z-index: 999;
   pointer-events: none;
   border-radius: 50%;
+  opacity: 0;
   transform: translate3d(-100px, -100px, 0);
   will-change: transform;
 }
@@ -252,14 +253,15 @@ html {
 }
 
 /* ---------- 滚动入场 ---------- */
-[data-reveal] {
+/* 只有 JS 可用时才隐藏，避免脚本失效导致内容不可见 */
+html.js [data-reveal] {
   opacity: 0;
   transform: translateY(26px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.62s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-[data-reveal].is-in { opacity: 1; transform: none; }
+html.js [data-reveal].is-in { opacity: 1; transform: none; }
 
 /* ---------- 卡片：倾斜 + 光斑 ---------- */
 .tilt {
