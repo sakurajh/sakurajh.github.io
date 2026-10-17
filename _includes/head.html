@@ -18,6 +18,12 @@
 {% if site.seo.baidu_verification and site.seo.baidu_verification != "" %}
 <meta name="baidu-site-verification" content="{{ site.seo.baidu_verification }}">
 {% endif %}
+{% if site.seo.sogou_verification and site.seo.sogou_verification != "" %}
+<meta name="sogou_site_verification" content="{{ site.seo.sogou_verification }}">
+{% endif %}
+{% if site.seo.so360_verification and site.seo.so360_verification != "" %}
+<meta name="360-site-verification" content="{{ site.seo.so360_verification }}">
+{% endif %}
 
 <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
 <link rel="canonical" href="{{ page.url | absolute_url }}">
