@@ -570,14 +570,14 @@
     var CW = 0, CH = 0;
     var nodes = [];
     var pointer = { x: -9999, y: -9999, active: false };
-    var LINK = 134;
+    var LINK = 140;
     var MOUSE_LINK = 176;
 
     var palette = function () {
       var dark = root.getAttribute('data-theme') === 'dark';
       return dark
-        ? { dot: 'rgba(203, 213, 245,', line: 'rgba(147, 170, 255,' }
-        : { dot: 'rgba(76, 60, 170,', line: 'rgba(109, 88, 235,' };
+        ? { dot: 'rgba(214, 224, 255,', line: 'rgba(158, 180, 255,' }
+        : { dot: 'rgba(72, 56, 168,', line: 'rgba(104, 82, 232,' };
     };
 
     var resizeCanvas = function () {
@@ -624,7 +624,7 @@
           var dy = pa.y - pb.y;
           var d2 = dx * dx + dy * dy;
           if (d2 < LINK * LINK) {
-            var alpha = (1 - Math.sqrt(d2) / LINK) * 0.42;
+            var alpha = (1 - Math.sqrt(d2) / LINK) * 0.52;
             ctx.strokeStyle = c.line + alpha.toFixed(3) + ')';
             ctx.lineWidth = 1;
             ctx.beginPath();
@@ -649,7 +649,7 @@
           }
         }
 
-        var dotAlpha = pointer.active ? 0.78 : 0.62;
+        var dotAlpha = pointer.active ? 0.86 : 0.72;
         ctx.fillStyle = c.dot + dotAlpha + ')';
         ctx.beginPath();
         ctx.arc(pa.x, pa.y, pa.r, 0, Math.PI * 2);

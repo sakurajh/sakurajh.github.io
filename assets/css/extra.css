@@ -757,7 +757,7 @@ body.is-leaving .page-main {
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 [data-theme="dark"] #constellation { opacity: 1; }
