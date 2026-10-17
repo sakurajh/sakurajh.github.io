@@ -702,6 +702,127 @@ body.is-leaving .page-main {
   .has-lines .cl { padding-left: 2.4em; }
 }
 
+/* ==========================================================================
+   会动的背景：极光渐变 + 网格 + 星空（深色模式）
+   ========================================================================== */
+
+.bg-deco {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translate3d(var(--bgx, 0px), var(--bgy, 0px), 0);
+  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 网格 */
+.bg-grid {
+  position: absolute;
+  inset: -20%;
+  background-image:
+    linear-gradient(to right, rgba(17, 24, 39, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 24, 39, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 72% 58% at 50% 26%, #000 30%, transparent 76%);
+  mask-image: radial-gradient(ellipse 72% 58% at 50% 26%, #000 30%, transparent 76%);
+}
+
+[data-theme="dark"] .bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+}
+
+/* 极光 */
+.aurora-layer { position: absolute; inset: 0; }
+
+.aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(68px);
+  opacity: 0.5;
+  will-change: transform;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .aurora { opacity: 0.42; }
+
+.a1 {
+  width: 54vw; height: 54vw;
+  min-width: 420px; min-height: 420px;
+  left: -14%; top: -20%;
+  background: radial-gradient(circle at 42% 42%, rgba(124, 58, 237, 0.9), transparent 68%);
+  animation: drift1 26s ease-in-out infinite alternate;
+}
+
+.a2 {
+  width: 48vw; height: 48vw;
+  min-width: 380px; min-height: 380px;
+  right: -16%; top: 2%;
+  background: radial-gradient(circle at 55% 45%, rgba(37, 99, 235, 0.82), transparent 68%);
+  animation: drift2 33s ease-in-out infinite alternate;
+}
+
+.a3 {
+  width: 46vw; height: 46vw;
+  min-width: 340px; min-height: 340px;
+  left: 18%; bottom: -22%;
+  background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.72), transparent 70%);
+  animation: drift3 38s ease-in-out infinite alternate;
+}
+
+.a4 {
+  width: 34vw; height: 34vw;
+  min-width: 260px; min-height: 260px;
+  right: 12%; bottom: -10%;
+  background: radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.55), transparent 70%);
+  animation: drift4 30s ease-in-out infinite alternate;
+}
+
+@keyframes drift1 {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(9vw, 7vh, 0) scale(1.14); }
+}
+
+@keyframes drift2 {
+  from { transform: translate3d(0, 0, 0) scale(1.06); }
+  to   { transform: translate3d(-8vw, 10vh, 0) scale(0.94); }
+}
+
+@keyframes drift3 {
+  from { transform: translate3d(0, 0, 0) scale(0.96); }
+  to   { transform: translate3d(7vw, -9vh, 0) scale(1.12); }
+}
+
+@keyframes drift4 {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-10vw, -7vh, 0) scale(1.1); }
+}
+
+/* 星空（仅深色模式） */
+#starfield {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+[data-theme="dark"] #starfield { opacity: 0.8; }
+
+@media (max-width: 720px) {
+  .aurora { filter: blur(52px); opacity: 0.42; }
+  .a4 { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora { animation: none; }
+  .bg-deco { transition: none; }
+  #starfield { display: none; }
+}
+
 /* ---------- 归档时间线 ---------- */
 .archive-year {
   margin-bottom: 20px;

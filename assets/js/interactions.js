@@ -561,4 +561,81 @@
       }
     });
   }
+
+  /* ============ 23. 背景：星空画布 ============ */
+  var starCanvas = document.getElementById('starfield');
+  var isDark = function () { return root.getAttribute('data-theme') === 'dark'; };
+
+  if (starCanvas && !reduce && window.innerWidth > 720) {
+    var sctx = starCanvas.getContext('2d');
+    var stars = [];
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    var initStars = function () {
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      starCanvas.width = Math.round(w * dpr);
+      starCanvas.height = Math.round(h * dpr);
+      starCanvas.style.width = w + 'px';
+      starCanvas.style.height = h + 'px';
+      var count = Math.min(Math.round((w * h) / 15000), 110);
+      stars = [];
+      for (var i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.3 + 0.4,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.4 + Math.random() * 0.9
+        });
+      }
+    };
+
+    var drawStars = function (t) {
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      sctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        var alpha = 0.22 + 0.68 * Math.abs(Math.sin(t * 0.001 * s.speed + s.phase));
+        sctx.beginPath();
+        sctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        sctx.fillStyle = 'rgba(226, 232, 240, ' + alpha.toFixed(2) + ')';
+        sctx.fill();
+      }
+    };
+
+    initStars();
+    window.addEventListener('resize', initStars);
+
+    var lastPaint = 0;
+    var starLoop = function (t) {
+      if (isDark() && t - lastPaint > 90) {
+        drawStars(t);
+        lastPaint = t;
+      }
+      requestAnimationFrame(starLoop);
+    };
+    requestAnimationFrame(starLoop);
+  }
+
+  /* ============ 24. 背景视差（跟随鼠标） ============ */
+  if (fine && !reduce) {
+    var bgX = 0, bgY = 0, targetX = 0, targetY = 0;
+    document.addEventListener('mousemove', function (e) {
+      targetX = (e.clientX / window.innerWidth - 0.5) * -26;
+      targetY = (e.clientY / window.innerHeight - 0.5) * -20;
+    }, { passive: true });
+
+    (function parallaxLoop() {
+      bgX += (targetX - bgX) * 0.055;
+      bgY += (targetY - bgY) * 0.055;
+      if (Math.abs(targetX - bgX) > 0.2 || Math.abs(targetY - bgY) > 0.2) {
+        root.style.setProperty('--bgx', bgX.toFixed(1) + 'px');
+        root.style.setProperty('--bgy', bgY.toFixed(1) + 'px');
+      }
+      requestAnimationFrame(parallaxLoop);
+    })();
+  }
 })();
