@@ -727,12 +727,21 @@ body.is-leaving .page-main {
 .archive-list .pl-title { flex: 1; font-size: 14.5px; }
 .archive-list .pl-cat {
   flex: 0 0 auto;
+  white-space: nowrap;
   font-style: normal;
   font-size: 11.5px;
   color: var(--muted);
   background: var(--bg-soft);
   padding: 1px 8px;
   border-radius: 6px;
+}
+
+@media (max-width: 720px) {
+  .archive-year { padding: 16px 16px 6px; }
+  .archive-list a { gap: 10px; }
+  .archive-list time { flex: 0 0 42px; font-size: 11.5px; }
+  .archive-list .pl-title { font-size: 14px; }
+  .archive-list .pl-cat { display: none; }
 }
 
 /* ---------- 分享栏 ---------- */
