@@ -45,6 +45,10 @@ layout: default
     <p class="post-back"><a href="{{ '/' | relative_url }}">← 返回首页</a></p>
   </div>
 
+  {% if page.tags contains 'mathjax' or page.mathjax %}
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  {% endif %}
+
   <aside class="post-aside" aria-label="目录">
     <div class="toc" id="toc">
       <div class="toc-title">目录</div>
