@@ -6,7 +6,6 @@ categories: 项目
 tags: Python pyserial tkinter STM32 串口通信
 description: "调试 STM32 时串口助手只能看文本，采样数据既不能筛选也不能存。这篇从零搭一个最小可用的上位机：读线程、自定义帧格式、tkinter 批量刷新，最后打成单文件 exe，代码可以直接抄。"
 ---
-
 上个月给一块 STM32F103 的小板子调 MPU6050，需要连着看三路采样值。串口助手能把 `printf` 出来的东西显示出来，但它有三个我忍不了的地方：数据是纯文本，想算个滑动平均得先复制粘贴进 Excel；加了时间戳和通道号之后每行变得很长，滚动起来眼睛跟不上；偶发丢帧的时候只能靠一行行肉眼比对，根本判断不了是数据错了还是显示错了。
 
 于是一个晚上写了个不到 300 行的上位机。这篇文章把它拆开讲，重点只有三个地方：读串口为什么必须放子线程、帧怎么分、界面怎么刷新才不卡。
@@ -22,6 +21,16 @@ serial-monitor/
 ```
 
 `requirements.txt` 只有一行 `pyserial`。tkinter 是标准库，不用装。
+
+## 为什么不用 Qt 或网页
+
+这类小工具最怕的是发给同学装不上。PyQt 功能确实强，但要把 Qt 运行库一起打包，分发体积明显更大，而且 PyQt 的 GPL 授权在实验室以外的地方需要留意；换成网页方案（本地 Flask 加浏览器）跨平台最省事，可又得多维护一个进程和端口，插拔串口时页面还得自己处理重连。我的使用场景就是插上开发板看几路数据，界面只有下拉框、按钮和文本框，tkinter 够用，而且它在 Python 标准库里，别人拿到源码双击就能跑。选型的标准不是"哪个更专业"，而是"谁维护成本最低"。
+
+| 方案 | 依赖 | 分发成本 | 适合场景 |
+|---|---|---|---|
+| tkinter | Python 标准库 | 最小，PyInstaller 单文件即可 | 内部调试工具、界面简单 |
+| PyQt/PySide | 第三方 Qt 运行库 | 体积更大，需注意许可证 | 复杂交互、长期维护的上位机 |
+| 本地 Web 页面 | 浏览器 + Web 框架 | 多一个常驻服务 | 多人访问、远程查看 |
 
 ## 第一步：把读串口放进子线程
 
@@ -202,6 +211,58 @@ def _poll(self):
 
 另外 `Text` 设成 `state='disabled'` 后用户不能编辑，但 `insert` 之前必须临时切回 `normal`，忘了就是"插不进去还不报错"。
 
+## 采样数据怎么落盘
+
+界面解决的是"我看见"，分析解决的是"我回看"。只把数据留在 Text 控件里，关掉程序就没了，所以我在同一个工具里加了 CSV 记录：勾选"记录"后，每次从队列取出的帧顺手写一行，文件名按启动时间生成。
+
+```python
+import csv
+import time
+
+
+class CsvRecorder:
+    """只在主线程调用：一次写一批，定时 flush"""
+
+    def __init__(self, path: str):
+        self._f = open(path, 'w', newline='', encoding='utf-8-sig')
+        self._w = csv.writer(self._f)
+        self._w.writerow(['t_s', 'channel', 'value'])
+        self._t0 = time.time()
+        self._last_flush = time.time()
+
+    def write(self, rows):
+        for ch, value in rows:
+            self._w.writerow([f'{time.time() - self._t0:.3f}', ch, f'{value:.2f}'])
+        # 每秒落一次盘，避免每行 flush 卡住界面
+        if time.time() - self._last_flush >= 1.0:
+            self._f.flush()
+            self._last_flush = time.time()
+
+    def close(self):
+        self._f.flush()
+        self._f.close()
+```
+
+三个细节值得说清楚：
+
+1. `encoding='utf-8-sig'` 不是为了好看。Windows 版 Excel 默认不认纯 UTF-8 的 CSV，表头里的中文会变成乱码；加 BOM 之后双击就能正确打开，这个和以前折腾 GBK 是同一类问题。
+2. 不在串口线程里写文件。磁盘偶尔卡一下，如果发生在读线程里，缓冲区就会堆起来，看起来像串口丢数据。写文件统一放到主线程的批量回调里，读线程只负责收字节。
+3. 用 `flush()` 控制频率而不是每行都刷。每行 flush 等于每 30 毫秒强制一次磁盘写入，界面在机械硬盘上会明显发顿；每秒刷一次，最坏丢一秒数据，对调 PID 这类场景完全可以接受。
+
+关窗口时也要把记录器关掉，否则 Python 退出时可能还没来得及刷缓冲区：
+
+```python
+def on_close(self):
+    self.worker.close()
+    if self.recorder:
+        self.recorder.close()
+    self.root.destroy()
+
+self.root.protocol('WM_DELETE_WINDOW', self.on_close)
+```
+
+`WM_DELETE_WINDOW` 是 tkinter 的关闭钩子，不注册它，点右上角的叉只会销毁窗口，后台线程和文件对象都还活着。
+
 ## 打包成 exe
 
 ```bash
@@ -243,4 +304,3 @@ pyinstaller -F -w -n SerialMonitor --icon app.ico \
 - 界面刷新要合并，`after()` 批处理比"来一帧刷一次"稳。
 
 再往下能加的东西不少：把数据写成 CSV、用 matplotlib 画实时曲线、命令下发也走同一套帧格式。但先把这三件事做对，这个工具已经能天天用了。
-
