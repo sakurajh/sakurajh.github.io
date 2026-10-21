@@ -7,7 +7,7 @@
       <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%Y-%m-%d' }}</time>
     </div>
     <h3>{{ include.post.title }}</h3>
-    {% assign body = include.post.content | strip_html | strip_newlines | replace: '#', '' | strip %}
+    {% assign body = include.post.description | default: include.post.content | strip_html | strip_newlines | replace: '#', '' | strip %}
     <p class="post-card-excerpt">{{ body | truncate: 110 }}</p>
     <div class="post-card-foot">
       {% assign words = include.post.content | strip_html | size %}

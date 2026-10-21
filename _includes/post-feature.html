@@ -1,6 +1,6 @@
 {% assign cat = include.post.categories | first %}
 {% include cat-label.html cat=cat %}
-{% assign body = include.post.content | strip_html | strip_newlines | replace: '#', '' | strip %}
+{% assign body = include.post.description | default: include.post.content | strip_html | strip_newlines | replace: '#', '' | strip %}
 <a class="post-feature" href="{{ include.post.url | relative_url }}" data-reveal>
   <span class="chip">{{ cat_label }}</span>
   <h2>{{ include.post.title }}</h2>

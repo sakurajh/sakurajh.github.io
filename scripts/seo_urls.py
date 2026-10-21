@@ -11,8 +11,9 @@ urls = [BASE + "/"]
 for p in PAGES:
     urls.append("%s/%s.html" % (BASE, p))
 
-for path in sorted(glob.glob("_posts/*.md")):
-    name = os.path.basename(path)[:-3]
+paths = sorted(glob.glob("_posts/*.md")) + sorted(glob.glob("_posts/*.html"))
+for path in paths:
+    name = os.path.splitext(os.path.basename(path))[0]
     m = re.match(r"(\d{4})-(\d{1,2})-(\d{1,2})-(.+)", name)
     if not m:
         continue
