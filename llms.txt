@@ -3,7 +3,7 @@
 > 一个中文技术博客：Java / C / C# / MySQL 学习笔记，嵌入式（STM32、51 单片机、OpenMV），
 > Web 全栈（FastAPI、SpringBoot），以及科学计算方向的桌面工具（超算作业提交、分子动力学流程管理）。
 
-站点地址：https://www.sakurajh.xyz
+站点地址：https://www.sakura.work.gd
 作者：赵华（小赵 / sakurajh）
 GitHub：https://github.com/sakurajh
 CSDN：https://blog.csdn.net/Sakura_j_h_
@@ -11,14 +11,14 @@ CSDN：https://blog.csdn.net/Sakura_j_h_
 
 ## 内容结构
 
-- 首页：https://www.sakurajh.xyz/
-- 时间线（全部文章）：https://www.sakurajh.xyz/archive.html
-- 分类：https://www.sakurajh.xyz/categories.html
-- 标签：https://www.sakurajh.xyz/tags.html
-- 项目：https://www.sakurajh.xyz/projects.html
-- 关于：https://www.sakurajh.xyz/about.html
-- RSS：https://www.sakurajh.xyz/rss.xml
-- Sitemap：https://www.sakurajh.xyz/sitemap.xml
+- 首页：https://www.sakura.work.gd/
+- 时间线（全部文章）：https://www.sakura.work.gd/archive.html
+- 分类：https://www.sakura.work.gd/categories.html
+- 标签：https://www.sakura.work.gd/tags.html
+- 项目：https://www.sakura.work.gd/projects.html
+- 关于：https://www.sakura.work.gd/about.html
+- RSS：https://www.sakura.work.gd/rss.xml
+- Sitemap：https://www.sakura.work.gd/sitemap.xml
 
 ## 主要分类
 

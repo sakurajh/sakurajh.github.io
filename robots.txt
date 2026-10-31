@@ -2,16 +2,16 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 
-Sitemap: https://www.sakurajh.xyz/sitemap.xml
+Sitemap: https://www.sakura.work.gd/sitemap.xml
 
 User-agent: Baiduspider
 Allow: /
-Sitemap: https://www.sakurajh.xyz/sitemap.xml
+Sitemap: https://www.sakura.work.gd/sitemap.xml
 
 User-agent: Bingbot
 Allow: /
-Sitemap: https://www.sakurajh.xyz/sitemap.xml
+Sitemap: https://www.sakura.work.gd/sitemap.xml
 
 User-agent: Googlebot
 Allow: /
-Sitemap: https://www.sakurajh.xyz/sitemap.xml
+Sitemap: https://www.sakura.work.gd/sitemap.xml

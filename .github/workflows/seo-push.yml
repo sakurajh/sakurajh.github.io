@@ -34,4 +34,4 @@ jobs:
             exit 0
           fi
           curl -sS -H 'Content-Type:text/plain' --data-binary @urls.txt \
-            "http://data.zz.baidu.com/urls?site=https://www.sakurajh.xyz&token=$BAIDU_TOKEN" || true
+            "http://data.zz.baidu.com/urls?site=https://www.sakura.work.gd&token=$BAIDU_TOKEN" || true

@@ -11,7 +11,7 @@ description: "从只能看结构的静态演示，到六轴关节可驱动、爆
 
 这里说的数字孪生不是产线级仿真，而是一个能在浏览器里讲清运动关系的交互模型：六个关节可以独立驱动，爆炸图按总成分层，外壳能透视或剥离，剖面能实时切，点击标注还能看材料和规格。今天放上来的版本把 Three.js、Tailwind 运行时和字体全部本地化，下载后双击就能离线跑。
 
-<video controls preload="metadata" poster="https://www.sakurajh.xyz/assets/images/aero-6x/robot-arm-default.jpg" src="https://www.sakurajh.xyz/aero-6x-digital-twin/demo/aero-6x-demo.mp4" style="width:100%;border-radius:6px;background:#070b14"></video>
+<video controls preload="metadata" poster="https://www.sakura.work.gd/assets/images/aero-6x/robot-arm-default.jpg" src="https://www.sakura.work.gd/aero-6x-digital-twin/demo/aero-6x-demo.mp4" style="width:100%;border-radius:6px;background:#070b14"></video>
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:8px">53 秒演示：关节驱动 → 自动巡航 → 爆炸分层 → 透明外壳 → Z 轴剖面 → 部件检视 → 复位</p>
 
@@ -35,7 +35,7 @@ description: "从只能看结构的静态演示，到六轴关节可驱动、爆
 | J5 | Z | 腕部摆动 | −125° ~ 125° |
 | J6 | X | 末端法兰旋转 | −360° ~ 360° |
 
-![AERO-6X 默认视图](https://www.sakurajh.xyz/assets/images/aero-6x/robot-arm-default.jpg)
+![AERO-6X 默认视图](https://www.sakura.work.gd/assets/images/aero-6x/robot-arm-default.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">1600×900 下的默认视图：左侧检视器，右侧四个控制标签页。</p>
 
@@ -45,7 +45,7 @@ description: "从只能看结构的静态演示，到六轴关节可驱动、爆
 
 ## 二、六轴联动：转 Group，不要逐个转 mesh
 
-![六轴关节驱动](https://www.sakurajh.xyz/assets/images/aero-6x/robot-arm-joints.jpg)
+![六轴关节驱动](https://www.sakura.work.gd/assets/images/aero-6x/robot-arm-joints.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">J1 转到 70°、J3 转到 75° 后的姿态，右侧滑杆与模型实时联动。</p>
 关节运动的核心只有几行：
@@ -79,7 +79,7 @@ function applyJointKinematics() {
 
 ## 三、爆炸图：目标值加帧插值
 
-![100% 爆炸图](https://www.sakurajh.xyz/assets/images/aero-6x/robot-arm-exploded.jpg)
+![100% 爆炸图](https://www.sakura.work.gd/assets/images/aero-6x/robot-arm-exploded.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">100% 爆炸：外壳、减速器和末端按各自方向分离，虚线保留装配基准。</p>
 爆炸不是把零件随机推远，而是给每个可分离件一个 `explodeVec`，再乘上总体系和分组权重：
@@ -124,7 +124,7 @@ state.explodeFactor += (state.targetExplodeFactor - state.explodeFactor) * 0.12;
 
 ## 四、透明外壳：材质和图层分开管
 
-![22% 透明外壳](https://www.sakurajh.xyz/assets/images/aero-6x/robot-arm-xray.jpg)
+![22% 透明外壳](https://www.sakura.work.gd/assets/images/aero-6x/robot-arm-xray.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">22% 透视：外壳成为玻璃态，电机、减速器和线束保持不透明。</p>
 外壳有四种模式：实体、22% 透视、线框和剥离。实现上只改外壳材质和图层可见性，不碰内部零件：
@@ -176,7 +176,7 @@ function applyShellAndLayerState() {
 
 ## 五、剖面：一个平面挂到所有材质
 
-![Z 轴剖面](https://www.sakurajh.xyz/assets/images/aero-6x/robot-arm-section.jpg)
+![Z 轴剖面](https://www.sakura.work.gd/assets/images/aero-6x/robot-arm-section.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">Z 轴剖面：裁剪面切掉近侧壳体，配合剖面辅助面观察内腔。</p>
 剖面用的是 Three.js 的局部裁剪面。先算方向和偏移，再把同一个平面挂到场景里所有需要被切的材质上：
@@ -254,16 +254,16 @@ function updateAnnotations() {
 
 ### 交付：依赖本地化，双击就能跑
 
-![部件检视器](https://www.sakurajh.xyz/assets/images/aero-6x/robot-arm-inspector.jpg)
+![部件检视器](https://www.sakura.work.gd/assets/images/aero-6x/robot-arm-inspector.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">点击“04 肘部”标注后，检视器显示材料、层级与峰值扭矩字段。</p>
 这个页面最初从 CDN 加载 Three.js r128、Tailwind 运行时和 Google Fonts。为了让实验室的离线机器和博客读者都能直接打开，我把三样都放进了 `vendor/`：Three.js 和 Tailwind 运行时是本地 JS，Inter 和 JetBrains Mono 只保留拉丁字形，中文回退到系统字体。改完后用 `file://` 打开，监听网络面板确认没有外部请求，控制台也没有应用报错。
 
 交付物是一个 53 秒的功能演示、一个约 16 秒的模式 GIF，以及仓库里的 `index.html` 和 `vendor/`。演示是在 1600×900 下逐项操作录的：关节滑杆、自动巡航、100% 爆炸、22% 透视、Z 轴剖面、部件检视和一键复位。
 
-- 在线演示：<https://www.sakurajh.xyz/aero-6x-digital-twin/>
+- 在线演示：<https://www.sakura.work.gd/aero-6x-digital-twin/>
 - 源码与离线包：<https://github.com/sakurajh/aero-6x-digital-twin>
-- 完整演示视频：<https://www.sakurajh.xyz/aero-6x-digital-twin/demo/aero-6x-demo.mp4>
+- 完整演示视频：<https://www.sakura.work.gd/aero-6x-digital-twin/demo/aero-6x-demo.mp4>
 
 下一步我想把关节运动换成带加减速的轨迹规划，再补一个"示教点位"功能：把几个姿态存下来，按顺序回放。这样它会更像真正的数字孪生，而不只是一个能拖滑杆的模型。
 
