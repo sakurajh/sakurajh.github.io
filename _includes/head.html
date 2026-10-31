@@ -6,8 +6,21 @@
   - 描述：page.description 优先，其次文章自身摘要 excerpt（保证每篇唯一），最后才回落站默认描述
 {%- endcomment -%}
 {% if page.seo_title %}{% assign _seo_title = page.seo_title %}{% elsif page.title %}{% assign _seo_title = page.title | append: " · " | append: site.title %}{% else %}{% assign _seo_title = site.title | append: " · STM32 / Java / MySQL 实战笔记" %}{% endif %}
-{% assign _seo_desc = page.description | default: page.excerpt | default: site.description %}
-{% assign _seo_desc = _seo_desc | strip_html | normalize_whitespace | strip | truncate: 120 %}
+{% assign _seo_desc = page.description | default: "" | strip_html | normalize_whitespace | strip %}
+{% if _seo_desc.size < 40 %}
+{%- comment -%} 描述太短就自己拼：优先文章摘要，摘要只是小标题时改用正文开头 {%- endcomment -%}
+{% assign _seo_ex = page.excerpt | strip_html | normalize_whitespace | strip %}
+{% assign _seo_body = page.content | strip_html | normalize_whitespace | strip %}
+{% if _seo_ex.size > 40 %}
+{% assign _seo_desc = _seo_ex %}
+{% elsif _seo_body.size > 30 %}
+{% assign _seo_head = _seo_body | truncate: 72 %}
+{% assign _seo_desc = page.title | append: "：" | append: _seo_head | append: " — 赵华的个人博客" %}
+{% else %}
+{% assign _seo_desc = site.description %}
+{% endif %}
+{% endif %}
+{% assign _seo_desc = _seo_desc | truncate: 130 %}
 {%- comment -%} 分页页（/page2/ 等）单独给标题和描述，否则会和首页重复 {%- endcomment -%}
 {% if paginator and paginator.page > 1 %}
 {% assign _seo_title = site.title | append: " · 第 " | append: paginator.page | append: " 页" %}
