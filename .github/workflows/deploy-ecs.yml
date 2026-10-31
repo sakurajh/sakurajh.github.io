@@ -38,9 +38,12 @@ jobs:
           source: ./
           destination: ./_site
 
+      - name: Fix permissions
+        # jekyll-build-pages 在容器里以别的 UID 写文件，runner 用户改不动
+        run: sudo chown -R "$(id -u):$(id -g)" ./_site
+
       - name: Rewrite domain to domestic mirror
         run: |
-          set -e
           OLD="https://www.sakura.work.gd"
           DOMAIN="${{ vars.ECS_DOMAIN }}"
           # 用 IP 预览时是 HTTP（IP 申请不到证书），用域名时是 HTTPS
@@ -53,7 +56,7 @@ jobs:
           fi
           # canonical / og:url / sitemap / rss / JSON-LD 全部来自 site.url，
           # 统一替换即可，不需要第二次 Jekyll 构建
-          grep -rl "$OLD" ./_site | while read -r f; do
+          { grep -rl "$OLD" ./_site 2>/dev/null || true; } | while read -r f; do
             sed -i "s#${OLD}#${NEW}#g" "$f"
           done
           echo "替换完成，抽查："
