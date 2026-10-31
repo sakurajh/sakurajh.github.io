@@ -1,0 +1,77 @@
+name: Deploy to Aliyun ECS
+
+# 国内镜像站：把同一次构建的产物同步到阿里云 ECS
+# 默认不会运行，需要在仓库 Settings → Variables 里设置 ECS_DEPLOY=true 才启用
+#
+# 需要的仓库变量（Settings → Secrets and variables → Actions）
+#   Variables:  ECS_DEPLOY=true
+#               ECS_DOMAIN=www.example.com      （备案通过的新域名）
+#   Secrets:    ECS_HOST=47.96.185.219
+#               ECS_USER=root
+#               ECS_SSH_KEY=<私钥全文>
+#               ECS_PATH=/var/www/blog           （可选，默认这个）
+
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "ecs-deploy"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    # 只有显式开启才会跑，避免没配密钥时天天报红
+    if: vars.ECS_DEPLOY == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Rewrite domain to domestic mirror
+        run: |
+          set -e
+          OLD="https://www.sakura.work.gd"
+          NEW="https://${{ vars.ECS_DOMAIN }}"
+          echo "把 $OLD 替换为 $NEW"
+          # canonical / og:url / sitemap / rss / JSON-LD 全部来自 site.url，
+          # 统一替换即可，不需要第二次 Jekyll 构建
+          grep -rl "$OLD" ./_site | while read -r f; do
+            sed -i "s#${OLD}#${NEW}#g" "$f"
+          done
+          echo "替换完成，抽查："
+          grep -o '<link rel="canonical"[^>]*>' ./_site/index.html || true
+
+      - name: Setup SSH key
+        env:
+          SSH_KEY: ${{ secrets.ECS_SSH_KEY }}
+          HOST: ${{ secrets.ECS_HOST }}
+        run: |
+          set -e
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Rsync to ECS
+        env:
+          HOST: ${{ secrets.ECS_HOST }}
+          USER: ${{ secrets.ECS_USER }}
+          TARGET: ${{ secrets.ECS_PATH }}
+        run: |
+          set -e
+          DEST="${TARGET:-/var/www/blog}"
+          rsync -az --delete --chmod=D755,F644 \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
+            ./_site/ "$USER@$HOST:$DEST/"
+          echo "已同步到 $HOST:$DEST"
