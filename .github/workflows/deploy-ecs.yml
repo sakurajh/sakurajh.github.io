@@ -42,8 +42,15 @@ jobs:
         run: |
           set -e
           OLD="https://www.sakura.work.gd"
-          NEW="https://${{ vars.ECS_DOMAIN }}"
-          echo "把 $OLD 替换为 $NEW"
+          DOMAIN="${{ vars.ECS_DOMAIN }}"
+          # 用 IP 预览时是 HTTP（IP 申请不到证书），用域名时是 HTTPS
+          if [[ "$DOMAIN" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]]; then
+            NEW="http://${DOMAIN}"
+            echo "检测到 IP，使用 HTTP：$NEW"
+          else
+            NEW="https://${DOMAIN}"
+            echo "检测到域名，使用 HTTPS：$NEW"
+          fi
           # canonical / og:url / sitemap / rss / JSON-LD 全部来自 site.url，
           # 统一替换即可，不需要第二次 Jekyll 构建
           grep -rl "$OLD" ./_site | while read -r f; do
