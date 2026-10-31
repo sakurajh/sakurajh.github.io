@@ -27,7 +27,7 @@
 {% assign _seo_desc = "赵华博客的文章列表第 " | append: paginator.page | append: " 页，继续按发布时间浏览 STM32 嵌入式、Java 与 Spring Boot、MySQL 索引优化、Python 与 FastAPI 等技术文章。" %}
 {% endif %}
 <title>{{ _seo_title }}</title>
-<meta name="description" content="{{ _seo_desc }}">
+<meta name="description" content="{{ _seo_desc | escape }}">
 <meta name="author" content="{{ site.author }}">
 <meta name="keywords" content="{{ site.keyword }}">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
@@ -60,8 +60,8 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
-<meta property="og:title" content="{{ _seo_title }}">
-<meta property="og:description" content="{{ _seo_desc }}">
+<meta property="og:title" content="{{ _seo_title | escape }}">
+<meta property="og:description" content="{{ _seo_desc | escape }}">
 <meta property="og:url" content="{{ page.url | absolute_url }}">
 <meta property="og:site_name" content="{{ site.title }}">
 <meta property="og:locale" content="zh_CN">
@@ -75,8 +75,8 @@
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ _seo_title }}">
-<meta name="twitter:description" content="{{ _seo_desc }}">
+<meta name="twitter:title" content="{{ _seo_title | escape }}">
+<meta name="twitter:description" content="{{ _seo_desc | escape }}">
 <meta name="twitter:image" content="{{ site.seo.og_image | absolute_url }}">
 
 <!-- 结构化数据 -->
