@@ -1,7 +1,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-<meta name="description" content="{{ page.description | default: site.description | strip_newlines | strip }}">
+{%- comment -%}
+  SEO 标题与描述统一在此计算，避免三处重复逻辑：
+  - 标题：seo_title 优先（用于首页/静态页加长），其次「页标题 · 站名」，最后站名 + 关键词副标题
+  - 描述：page.description 优先，其次文章自身摘要 excerpt（保证每篇唯一），最后才回落站默认描述
+{%- endcomment -%}
+{% if page.seo_title %}{% assign _seo_title = page.seo_title %}{% elsif page.title %}{% assign _seo_title = page.title | append: " · " | append: site.title %}{% else %}{% assign _seo_title = site.title | append: " · STM32 / Java / MySQL 实战笔记" %}{% endif %}
+{% assign _seo_desc = page.description | default: page.excerpt | default: site.description %}
+{% assign _seo_desc = _seo_desc | strip_html | normalize_whitespace | strip | truncate: 120 %}
+{%- comment -%} 分页页（/page2/ 等）单独给标题和描述，否则会和首页重复 {%- endcomment -%}
+{% if paginator and paginator.page > 1 %}
+{% assign _seo_title = site.title | append: " · 第 " | append: paginator.page | append: " 页" %}
+{% assign _seo_desc = "赵华博客的文章列表第 " | append: paginator.page | append: " 页，继续按发布时间浏览 STM32 嵌入式、Java 与 Spring Boot、MySQL 索引优化、Python 与 FastAPI 等技术文章。" %}
+{% endif %}
+<title>{{ _seo_title }}</title>
+<meta name="description" content="{{ _seo_desc }}">
 <meta name="author" content="{{ site.author }}">
 <meta name="keywords" content="{{ site.keyword }}">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
@@ -34,8 +47,8 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
-<meta property="og:title" content="{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-<meta property="og:description" content="{{ page.description | default: site.description | strip_newlines | strip }}">
+<meta property="og:title" content="{{ _seo_title }}">
+<meta property="og:description" content="{{ _seo_desc }}">
 <meta property="og:url" content="{{ page.url | absolute_url }}">
 <meta property="og:site_name" content="{{ site.title }}">
 <meta property="og:locale" content="zh_CN">
@@ -49,8 +62,8 @@
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-<meta name="twitter:description" content="{{ page.description | default: site.description | strip_newlines | strip }}">
+<meta name="twitter:title" content="{{ _seo_title }}">
+<meta name="twitter:description" content="{{ _seo_desc }}">
 <meta name="twitter:image" content="{{ site.seo.og_image | absolute_url }}">
 
 <!-- 结构化数据 -->
@@ -60,7 +73,7 @@
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
-  "description": {{ page.description | default: site.description | strip_newlines | strip | jsonify }},
+  "description": {{ _seo_desc | jsonify }},
   "image": {{ site.seo.og_image | absolute_url | jsonify }},
   "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
   "dateModified": {{ page.date | date_to_xmlschema | jsonify }},
