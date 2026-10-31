@@ -6,7 +6,7 @@ import sys
 import urllib.request
 
 KEY = "2841f6f35f5267a30752bdc675745393"
-HOST = "www.sakura.work.gd"
+HOST = "www.sakurajh.xyz"
 ENDPOINT = "https://api.indexnow.org/indexnow"
 
 

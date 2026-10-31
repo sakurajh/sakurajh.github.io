@@ -4,7 +4,7 @@ import glob
 import os
 import re
 
-BASE = "https://www.sakura.work.gd"
+BASE = "https://www.sakurajh.xyz"
 PAGES = ["archive", "categories", "projects", "about"]
 
 urls = [BASE + "/"]

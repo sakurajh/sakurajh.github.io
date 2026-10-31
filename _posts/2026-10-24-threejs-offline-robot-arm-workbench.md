@@ -13,14 +13,14 @@ description: "从结构教学演示的需求出发，用 Three.js 程序化生�
 
 于是有了这个项目：六轴机械臂结构工作台。48 个可点选零件、8 个总成，支持完整装配、爆炸图、透明外壳和 X/Y/Z 剖面，最后打成一个双击就能运行的 `index.html`。文末是在线演示和 33 秒录屏。
 
-<video controls preload="metadata" poster="https://www.sakura.work.gd/assets/images/robot-arm-workbench/robot-arm.jpg" src="https://www.sakura.work.gd/robot-arm-structure-workbench/demo/robot-arm-demo.mp4" style="width:100%;border-radius:4px;background:#0b0f11"></video>
+<video controls preload="metadata" poster="https://www.sakurajh.xyz/assets/images/robot-arm-workbench/robot-arm.jpg" src="https://www.sakurajh.xyz/robot-arm-structure-workbench/demo/robot-arm-demo.mp4" style="width:100%;border-radius:4px;background:#0b0f11"></video>
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:8px">33 秒演示：旋转观察 → 零件拾取 → 总成聚焦 → 爆炸图 → 透明外壳 → Z 轴剖面 → 一键复位</p>
 
 
 ## 一、先定边界：不做 CAD，只做教具
 
-![六轴机械臂完整装配视图](https://www.sakura.work.gd/assets/images/robot-arm-workbench/robot-arm.jpg)
+![六轴机械臂完整装配视图](https://www.sakurajh.xyz/assets/images/robot-arm-workbench/robot-arm.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">完整装配模式。左侧是 8 个总成，右侧切换四种查看方式。</p>
 
@@ -71,7 +71,7 @@ UI 层只负责把按钮和滑块翻译成 action，显示控制器只负责把 
 
 ## 三、爆炸图：按装配方向走，不要随机散开
 
-![机械臂爆炸图](https://www.sakura.work.gd/assets/images/robot-arm-workbench/robot-arm-exploded.jpg)
+![机械臂爆炸图](https://www.sakurajh.xyz/assets/images/robot-arm-workbench/robot-arm-exploded.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">爆炸图 65%：总成沿各自的装配方向分离，底座保持不动。</p>
 
@@ -91,7 +91,7 @@ part.object.position.lerp(target, 1 - Math.exp(-12 * delta));
 
 ## 四、透明外壳：内部必须保持实体
 
-![机械臂透明外壳](https://www.sakura.work.gd/assets/images/robot-arm-workbench/robot-arm-shell.jpg)
+![机械臂透明外壳](https://www.sakurajh.xyz/assets/images/robot-arm-workbench/robot-arm-shell.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">透明外壳 75%：外壳变透明，内部电机、减速器和传动轴保持不透明。</p>
 
@@ -114,7 +114,7 @@ for (const material of internalMaterials) material.opacity = 1;
 
 ## 五、剖面图：裁剪面要挂到所有材质上
 
-![机械臂 Z 轴剖面](https://www.sakura.work.gd/assets/images/robot-arm-workbench/robot-arm-section.jpg)
+![机械臂 Z 轴剖面](https://www.sakurajh.xyz/assets/images/robot-arm-workbench/robot-arm-section.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">Z 轴剖面：裁剪面切掉近侧外壳，露出内部传动结构。</p>
 
@@ -159,7 +159,7 @@ const html = template
 | WebGL 降级 | 屏蔽 `webgl2` 上下文，断言提示可见且无报错 |
 | 空闲性能 | 断言无动画时停止 RAF，交互后恢复 |
 
-![窄屏下的底部抽屉](https://www.sakura.work.gd/assets/images/robot-arm-workbench/robot-arm-narrow.jpg)
+![窄屏下的底部抽屉](https://www.sakurajh.xyz/assets/images/robot-arm-workbench/robot-arm-narrow.jpg)
 
 <p style="text-align:center;color:#8b9795;font-size:13px;margin-top:-6px">390×844 窄屏：面板折叠为底部抽屉，3D 视口保持可见。</p>
 
@@ -172,9 +172,9 @@ const html = template
 
 完整流程是：完整装配下旋转观察 → 点击零件看说明 → 左侧总成聚焦 → 爆炸图拉到 65% → 透明外壳拉到 75% → Z 轴剖面 → 一键复位。我录了一段 33 秒的无声演示，可以直接看操作节奏。
 
-- 在线演示：<https://www.sakura.work.gd/robot-arm-structure-workbench/>
+- 在线演示：<https://www.sakurajh.xyz/robot-arm-structure-workbench/>
 - 源码与单文件下载：<https://github.com/sakurajh/robot-arm-structure-workbench>
-- 演示视频：<https://www.sakura.work.gd/robot-arm-structure-workbench/demo/robot-arm-demo.mp4>
+- 演示视频：<https://www.sakurajh.xyz/robot-arm-structure-workbench/demo/robot-arm-demo.mp4>
 
 如果只是想在课上或组会上讲结构，直接下载仓库里的 `index.html` 双击即可，不需要 Node.js、服务器或网络。模型是按教学示意生成的，不宣称工程级尺寸和装配精度；如果要继续做，我会先加关节运动学和 GLB 导入，让"看结构"和"看运动"能放在同一个页面里。
 

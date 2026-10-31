@@ -44,7 +44,7 @@ jobs:
 
       - name: Rewrite domain to domestic mirror
         run: |
-          OLD="https://www.sakura.work.gd"
+          OLD="https://www.sakurajh.xyz"
           DOMAIN="${{ vars.ECS_DOMAIN }}"
           # 用 IP 预览时是 HTTP（IP 申请不到证书），用域名时是 HTTPS
           if [[ "$DOMAIN" =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]]; then

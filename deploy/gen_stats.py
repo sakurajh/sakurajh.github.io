@@ -145,7 +145,7 @@ def main():
 
         if r["referer"] and r["referer"] != "-":
             ref = r["referer"]
-            if "sakura.work.gd" not in ref and "47.96.185.219" not in ref:
+            if "sakurajh.xyz" not in ref and "sakura.work.gd" not in ref and "47.96.185.219" not in ref:
                 referers[ref] += 1
 
     recent = recent[:25]
